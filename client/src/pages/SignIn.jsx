@@ -5,7 +5,7 @@ import {
   validateEmail,
   validatePassword,
 } from "../components/Reusables/Validations/InputValidation";
-import { FcGoogle } from "react-icons/fc";
+
 import Lesego from "../assets/Lesego.jpg";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../components/Reusables/LoadingSpinner/LoadingSpinner";
@@ -15,6 +15,7 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
+import OAuthBtn from "../components/Reusables/buttons/OAuthBtn";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const SignIn = () => {
   };
 
   return (
-    <section className="w-full h-screen flex justify-center items-center">
+    <section className="w-full min-h-screen flex justify-center items-center">
       {/* Left div */}
       <div className="hidden md:block w-1/2 h-full relative">
         <div className="absolute inset-0 flex flex-col justify-center items-center">
@@ -119,10 +120,8 @@ const SignIn = () => {
               <hr className="flex-grow border-gray-400" />
             </div>
 
-            <button className="w-full flex justify-center items-center gap-x-2 p-2 border border-gray-600 rounded-md hover:bg-accent">
-              <FcGoogle />
-              <p className="font-semibold">Sign in With Google</p>
-            </button>
+            {/* O Auth button */}
+
             <p className="text-gray-700">
               Don't have an account yet?
               <span className="font-semibold cursor-pointer">
@@ -131,6 +130,7 @@ const SignIn = () => {
               </span>{" "}
             </p>
           </form>
+          <OAuthBtn />
         </div>
       </div>
       {loading && <LoadingSpinner />}

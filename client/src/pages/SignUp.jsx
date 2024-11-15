@@ -10,6 +10,7 @@ import {
 } from "../components/Reusables/Validations/InputValidation";
 import Lesego from "../assets/Lesego.jpg";
 import LoadingSpinner from "../components/Reusables/LoadingSpinner/LoadingSpinner";
+import OAuthBtn from "../components/Reusables/buttons/OAuthBtn";
 
 const SignUp = () => {
   const [signUp, setSignUp] = useState({
@@ -162,10 +163,6 @@ const SignUp = () => {
               <hr className="flex-grow border-gray-400" />
             </div>
 
-            <button className="w-full flex justify-center items-center gap-x-2 p-2 border border-gray-600 rounded-md hover:bg-accent">
-              <FcGoogle />
-              <p className="font-semibold">Sign up With Google</p>
-            </button>
             <p className="text-gray-700">
               Already have an account?
               <span className="font-semibold cursor-pointer">
@@ -174,6 +171,7 @@ const SignUp = () => {
               </span>{" "}
             </p>
           </form>
+          <OAuthBtn />
         </div>
       </div>
       {/* right div */}
