@@ -9,10 +9,17 @@ import { FcGoogle } from "react-icons/fc";
 import Lesego from "../assets/Lesego.jpg";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../components/Reusables/LoadingSpinner/LoadingSpinner";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
 
 const SignIn = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.user);
 
   const [signIn, setSignIn] = useState({
     email: "",
@@ -28,7 +35,7 @@ const SignIn = () => {
     e.preventDefault();
     console.log("sign in details: ", signIn);
 
-    setLoading(true);
+    dispatch(signInStart());
     try {
       const response = await fetch("/api/auth/sign-in", {
         method: "POST",
@@ -44,10 +51,10 @@ const SignIn = () => {
 
       const data = await response.json();
       console.log("Sign in data", data);
-      setLoading(false);
+      dispatch(signInSuccess(data));
     } catch (error) {
       console.log(error);
-      setLoading(false);
+      dispatch(signInFailure());
     }
   };
 
