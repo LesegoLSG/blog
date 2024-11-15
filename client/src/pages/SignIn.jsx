@@ -7,8 +7,13 @@ import {
 } from "../components/Reusables/Validations/InputValidation";
 import { FcGoogle } from "react-icons/fc";
 import Lesego from "../assets/Lesego.jpg";
+import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../components/Reusables/LoadingSpinner/LoadingSpinner";
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   const [signIn, setSignIn] = useState({
     email: "",
     password: "",
@@ -19,9 +24,31 @@ const SignIn = () => {
     setSignIn({ ...signIn, [e.target.name]: e.target.value });
   };
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     console.log("sign in details: ", signIn);
+
+    setLoading(true);
+    try {
+      const response = await fetch("/api/auth/sign-in", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(signIn),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server Error: ${response.status}`);
+      }
+
+      navigate("/");
+
+      const data = await response.json();
+      console.log("Sign in data", data);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
   };
 
   return (
@@ -99,6 +126,7 @@ const SignIn = () => {
           </form>
         </div>
       </div>
+      {loading && <LoadingSpinner />}
     </section>
   );
 };
