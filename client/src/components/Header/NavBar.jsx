@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { FaSearch, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const handleSignOut = () => {
+    // dispatch(signOut());
+    setDropdownOpen(false);
   };
 
   return (
@@ -43,22 +55,65 @@ const NavBar = () => {
             </Link>
           </li>
         </ul>
-        <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-          <Link to="/sign-in">Sign In</Link>
-        </button>
       </div>
 
-      {/* Mobile Menu Icon */}
-      <div className="flex md:hidden">
-        <button onClick={toggleMenu}>
-          {menuOpen ? (
-            <FaTimes className="text-2xl text-blue-600" />
-          ) : (
-            <FaBars className="text-2xl text-blue-600" />
-          )}
-        </button>
-      </div>
+      <div className="flex gap-x-4">
+        {currentUser ? (
+          <div className="relative">
+            {/* <FaUserCircle
+              onClick={toggleDropdown}
+              className="text-2xl text-blue-600 cursor-pointer"
+            /> */}
+            <div className="w-14 h-14">
+              <img
+                alt="Picture"
+                src={
+                  currentUser.profilePicture ||
+                  "https://via.placeholder.com/150"
+                }
+                className={`w-full h-full object-fit rounded-full cursor-pointer`}
+                onClick={toggleDropdown}
+              />
+            </div>
 
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-60 bg-white shadow-lg rounded-lg py-2 z-10">
+                <p className="px-4 py-2 text-sm text-gray-700">
+                  {currentUser.email}
+                </p>
+                <Link
+                  to="/profile"
+                  onClick={() => setDropdownOpen(false)}
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={handleSignOut}
+                  className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+            <Link to="/sign-in">Sign In</Link>
+          </button>
+        )}
+
+        {/* Mobile Menu Icon and avator*/}
+        <div className="flex md:hidden">
+          <button onClick={toggleMenu}>
+            {menuOpen ? (
+              <FaTimes className="text-2xl text-blue-600" />
+            ) : (
+              <FaBars className="text-2xl text-blue-600" />
+            )}
+          </button>
+        </div>
+      </div>
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-16 left-0 w-full bg-white shadow-lg flex flex-col items-center md:hidden">
@@ -87,12 +142,14 @@ const NavBar = () => {
               </Link>
             </li>
           </ul>
-          <button
-            onClick={toggleMenu}
-            className="bg-blue-600 text-white px-4 py-2 mb-4 rounded-md hover:bg-blue-700"
-          >
-            Sign In
-          </button>
+          {!currentUser && (
+            <button
+              onClick={toggleMenu}
+              className="bg-blue-600 text-white px-4 py-2 mb-4 rounded-md hover:bg-blue-700"
+            >
+              Sign In
+            </button>
+          )}
         </div>
       )}
     </header>
