@@ -5,6 +5,7 @@ import SignIn from "./pages/SignIn";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import PageNotFound from "./pages/PageNotFound";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<PageNotFound />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
