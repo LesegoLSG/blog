@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaSearch, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../../redux/theme/themeSlice";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const { theme } = useSelector((state) => state.theme);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
@@ -22,7 +25,13 @@ const NavBar = () => {
   };
 
   return (
-    <header className="w-full bg-white shadow-md px-4 py-4 md:px-16 flex justify-between items-center">
+    <header
+      className={`w-full px-4 py-4 md:px-16 flex justify-between items-center ${
+        theme === "light"
+          ? "bg-white text-gray-800"
+          : "bg-gray-900 text-gray-100"
+      }`}
+    >
       {/* Logo */}
       <div>
         <h1 className="text-2xl font-bold text-blue-600">Lesego</h1>
@@ -58,6 +67,13 @@ const NavBar = () => {
       </div>
 
       <div className="flex gap-x-4">
+        {/* toggle */}
+        <button
+          className="p-2 bg-blue-400 cursor-pointer"
+          onClick={() => dispatch(toggleTheme())}
+        >
+          light
+        </button>
         {currentUser ? (
           <div className="relative">
             {/* <FaUserCircle
@@ -82,7 +98,7 @@ const NavBar = () => {
                   {currentUser.email}
                 </p>
                 <Link
-                  to="/profile"
+                  to="/dashboard?tab=profile"
                   onClick={() => setDropdownOpen(false)}
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
