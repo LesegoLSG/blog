@@ -22,7 +22,7 @@ const SignUp = () => {
   });
 
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value.trim() });
