@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaSearch, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../../redux/theme/themeSlice";
+import { signOut } from "../../redux/user/userSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const NavBar = () => {
   };
 
   const handleSignOut = () => {
-    // dispatch(signOut());
+    dispatch(signOut());
     setDropdownOpen(false);
   };
 
@@ -80,7 +81,7 @@ const NavBar = () => {
               onClick={toggleDropdown}
               className="text-2xl text-blue-600 cursor-pointer"
             /> */}
-            <div className="w-14 h-14">
+            <div className="w-12 h-12">
               <img
                 alt="Picture"
                 src={
@@ -105,7 +106,7 @@ const NavBar = () => {
                   Profile
                 </Link>
                 <button
-                  onClick={handleSignOut}
+                  onClick={() => handleSignOut()}
                   className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Sign Out

@@ -6,6 +6,8 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import PageNotFound from "./pages/PageNotFound";
 import Footer from "./components/Footer/Footer";
+import Dashboard from "./pages/Dashboard";
+import PrivateRoute from "./components/PrivateRoute.jsx/PrivateRoute";
 
 function App() {
   return (
@@ -17,6 +19,9 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<PageNotFound />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
       <Footer />
     </BrowserRouter>
