@@ -1,15 +1,19 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import InputField from "../Reusables/InputFields/InputField";
 import {
   validateEmail,
   validateLettersOnly,
   validatePhoneNumber,
 } from "../Reusables/Validations/InputValidation";
+import { signout } from "../../redux/user/userSlice";
 
 const DashProfile = () => {
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser);
+  const [imageFile, setImageFile] = useState(null);
+  const [imageFileUrl, setImageFileUrl] = useState(null);
+  const filePickerRef = useRef();
 
   const [formData, setFormData] = useState({
     firstName: currentUser.firstName,
@@ -19,8 +23,42 @@ const DashProfile = () => {
     password: "",
   });
 
+  useEffect(() => {
+    if (imageFile) {
+      uploadImage();
+    }
+  }, [imageFile]);
+
+  const uploadImage = async () => {};
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImageFileUrl(URL.createObjectURL(file));
+    }
+  };
+
+  console.log(imageFileUrl);
+
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
+  };
+
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signout());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -29,11 +67,19 @@ const DashProfile = () => {
 
       <div className="w-full flex justify-center items-center">
         <form className="w-full md:w-1/2 space-y-6">
-          <div className="flex justify-center items-center">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            ref={filePickerRef}
+            className="hidden"
+          />
+          <div className="flex flex-col justify-center items-center">
             <img
-              src={currentUser.profilePicture}
-              alt=""
-              className="w-36 h-36 rounded-full"
+              src={imageFileUrl || currentUser.profilePicture}
+              alt="User"
+              className="w-36 h-36 rounded-full cursor-pointer"
+              onClick={() => filePickerRef.current.click()}
             />
           </div>
 
@@ -77,7 +123,7 @@ const DashProfile = () => {
             <button className="bg-blue-400 p-2">Update</button>
             <div className="flex justify-between items-center">
               <span>Delete account</span>
-              <span>Sign out</span>
+              <span onClick={handleSignOut}>Sign out</span>
             </div>
           </div>
         </form>

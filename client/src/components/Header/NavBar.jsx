@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaSearch, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../../redux/theme/themeSlice";
-import { signOut } from "../../redux/user/userSlice";
+import { signout } from "../../redux/user/userSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -20,9 +20,20 @@ const NavBar = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  const handleSignOut = () => {
-    dispatch(signOut());
-    setDropdownOpen(false);
+  const handleSignOut = async () => {
+    try {
+      const res = await fetch("/api/user/signout", {
+        method: "POST",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signout());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
