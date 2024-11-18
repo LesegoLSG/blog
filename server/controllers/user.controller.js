@@ -7,8 +7,11 @@ export const test = (req, res) =>{
 }
 
 export const updateUser = async (req,res,next) =>{
+    console.log("user.id:", req.user.id);
+    console.log("params.userId:", req.params.userId);
+
    if(req.user.id !== req.params.userId){
-    return next(errorHandler(403,"Yo don't have the authority to update this user"));
+    return next(errorHandler(403,"You don't have the authority to update this user"));
    }
    if(req.body.password){
     if(req.body.password.length < 6){

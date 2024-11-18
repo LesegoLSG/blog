@@ -17,11 +17,18 @@ import {
 import { app } from "../../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import {
+  updateStart,
+  updateSuccess,
+  updateFailure,
+} from "../../redux/user/userSlice";
+import LoadingSpinner from "../Reusables/LoadingSpinner/LoadingSpinner";
 
 const DashProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, loading } = useSelector((state) => state.user);
+
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadingProgress, setImageFileUploadProgress] =
@@ -49,6 +56,7 @@ const DashProfile = () => {
     setImageFileUploadError(null);
     const storage = getStorage(app);
     const fileName = new Date().getTime() + imageFile.name;
+    console.log("file name:", fileName);
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, imageFile);
     uploadTask.on(
@@ -69,6 +77,8 @@ const DashProfile = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImageFileUrl(downloadURL);
+          setFormData({ ...formData, profilePicture: downloadURL });
+          console.log("Download Url:", downloadURL);
         });
       }
     );
@@ -104,12 +114,45 @@ const DashProfile = () => {
     }
   };
 
+  const submitUpdatedData = async (e) => {
+    e.preventDefault();
+    console.log("formData:", formData);
+    if (Object.keys(formData).length === 0) {
+      return;
+    }
+
+    try {
+      dispatch(updateStart());
+      console.log("dispatch started");
+      console.log("User id:", currentUser._id);
+      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      console.log("data:", data);
+      if (!res.ok) {
+        dispatch(updateFailure());
+      } else {
+        dispatch(updateSuccess(data));
+      }
+    } catch (error) {
+      dispatch(updateFailure());
+    }
+  };
+
   return (
     <div className="w-full p-4">
       <h1 className="text-center font-bold text-xl mb-4">Profile</h1>
 
-      <div className="w-full flex justify-center items-center">
-        <form className="w-full md:w-1/2 space-y-6">
+      <div className="w-full flex flex-col justify-center items-center">
+        <form
+          className="w-full md:w-1/2 space-y-6"
+          onSubmit={submitUpdatedData}
+        >
           <input
             type="file"
             accept="image/*"
@@ -193,22 +236,27 @@ const DashProfile = () => {
               validate={validateEmail}
               errorMessage="Invalid email eg john@gmail.com"
             />
-            <button className="bg-blue-400 p-2">Update</button>
-            <div className="flex justify-between items-center">
-              <span>Delete account</span>
-              <span onClick={handleSignOut}>Sign out</span>
-            </div>
-            {currentUser.isAdmin && (
-              <button
-                className="w-full bg-blue-400 p-2"
-                onClick={() => navigate("/create-post")}
-              >
-                Create a post
-              </button>
-            )}
+            <button type="submit" className="bg-blue-400 p-2">
+              Update
+            </button>
           </div>
         </form>
+        <div className="w-full md:w-1/2 space-y-6">
+          <div className="flex justify-between items-center">
+            <span>Delete account</span>
+            <span onClick={handleSignOut}>Sign out</span>
+          </div>
+          {currentUser.isAdmin && (
+            <button
+              className="w-full bg-blue-400 p-2"
+              onClick={() => navigate("/create-post")}
+            >
+              Create a post
+            </button>
+          )}
+        </div>
       </div>
+      {loading && <LoadingSpinner />}
     </div>
   );
 };
