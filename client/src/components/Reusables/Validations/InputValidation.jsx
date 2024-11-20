@@ -23,3 +23,8 @@ export const validateUsername = (username) => {
   const usernameRegex = /^[a-zA-Z0-9_]{3,16}$/;
   return usernameRegex.test(username);
 };
+
+export const validateLength = (input) => {
+  const lengthRegex = /^.{1,500}$/; // Matches strings between 1 and 500 characters
+  return lengthRegex.test(input);
+};

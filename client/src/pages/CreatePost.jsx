@@ -8,16 +8,30 @@ import {
   ref,
   getDownloadURL,
 } from "firebase/storage";
+import { validateLength } from "../components/Reusables/Validations/InputValidation";
 import { app } from "../firebase";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
+  const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [imageFileUploadingProgress, setImageFileUploadProgress] =
     useState(null);
   const [imageFileUploadingError, setImageFileUploadError] = useState(null);
-  const [formData, setFormData] = useState({});
+  const [publishError, setPublishError] = useState();
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "",
+    content: "",
+  });
+
+  console.log("formaData:", formData);
+
+  const handleInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleImageUpload = async (e) => {
     e.preventDefault();
@@ -60,18 +74,61 @@ const CreatePost = () => {
       setImageFileUploadProgress(null);
     }
   };
+
+  const handlePublishPost = async (e) => {
+    e.preventDefault();
+    console.log("publish data:", formData);
+
+    try {
+      const res = await fetch("/api/post/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setPublishError(data.message);
+        return;
+      } else {
+        setPublishError(null);
+        navigate(`/post/${data.slug}`);
+      }
+
+      if (data) {
+        console.log("Post created successfully");
+      }
+    } catch (error) {
+      setPublishError("Error publishing your post, please try again");
+    }
+  };
   return (
     <section className="max-w-4xl mx-auto p-4 min-h-screen">
       <h1 className="text-lg font-bold text-center my-6">Create a post</h1>
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={handlePublishPost}>
         <div className="flex flex-col md:flex-row justify-center items-center gap-4">
           {/* Title input */}
-          {/* <InputField placeholder="Title" className="flex-1" /> */}
-          {/* Select programming language input */}
+          <InputField
+            name="title"
+            type="text"
+            value={formData.title}
+            onChange={handleInputChange}
+            validate={validateLength}
+            errorMessage="Max length of your title should be less than 50"
+            placeholder="Title"
+            className="flex-1"
+          />
+          {/* Select programming language input (Category) */}
           <select
-            id="language"
-            name="language"
+            id="category"
+            name="category"
+            value={formData.category}
+            onChange={handleInputChange}
             className="border rounded-md p-2 w-full md:w-auto"
+            required={true}
           >
             <option value="" disabled selected>
               Select a language
@@ -120,11 +177,27 @@ const CreatePost = () => {
 
         <ReactQuill
           theme="snow"
-          placeholder="Content"
+          placeholder="Write your post content"
           className="h-72 mb-12"
-          required={true}
+          onChange={(value) => {
+            setFormData({ ...formData, content: value });
+          }}
+          // required={true}
         />
-        <button className="p-4 bg-blue-400">Publish</button>
+
+        {/* display publish error */}
+        {publishError && (
+          <p className="text-red-600 text-sm font-semibold text-center">
+            {publishError}
+          </p>
+        )}
+        <button
+          className="p-4 bg-blue-400 cursor-pointer"
+          disabled={!formData.image || imageFileUploadingProgress}
+          type="submit"
+        >
+          Publish
+        </button>
       </form>
     </section>
   );
