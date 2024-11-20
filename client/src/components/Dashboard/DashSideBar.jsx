@@ -4,8 +4,10 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
 import { SiBloglovin } from "react-icons/si";
 import { RiMoreFill, RiLogoutCircleLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 
 const DashSideBar = () => {
+  const { currentUser } = useSelector((state) => state.user);
   const [open, setOpen] = useState(true);
   const location = useLocation();
   const [tab, setTab] = useState("profile");
@@ -26,7 +28,10 @@ const DashSideBar = () => {
       icon: <FaUserFriends />,
       path: "/dashboard?tab=profile",
     },
-    { title: "Blog", icon: <SiBloglovin />, path: "/portal/blog" },
+    // Show post tab to the admin user only
+    ...(currentUser?.isAdmin
+      ? [{ title: "Posts", icon: <SiBloglovin />, path: "/dashboard?tab=post" }]
+      : []),
     {
       title: "More Tab 1",
       icon: <MdOutlineDashboard />,
