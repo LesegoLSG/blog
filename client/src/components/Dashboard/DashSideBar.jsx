@@ -30,13 +30,20 @@ const DashSideBar = () => {
     },
     // Show post tab to the admin user only
     ...(currentUser?.isAdmin
-      ? [{ title: "Posts", icon: <SiBloglovin />, path: "/dashboard?tab=post" }]
+      ? [
+          {
+            title: "Posts",
+            icon: <SiBloglovin />,
+            path: "/dashboard?tab=posts",
+          },
+          {
+            title: "Users",
+            icon: <MdOutlineDashboard />,
+            path: "/dashboard?tab=users",
+          },
+        ]
       : []),
-    {
-      title: "More Tab 1",
-      icon: <MdOutlineDashboard />,
-      path: "/portal/more1",
-    },
+
     {
       title: "More Tab 2",
       icon: <MdOutlineDashboard />,
