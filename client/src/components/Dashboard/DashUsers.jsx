@@ -61,6 +61,11 @@ const DashUsers = () => {
     setUserIdToDelete(id);
   };
 
+  // Cancel delete
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
+  };
+
   //   Delete user functionality
   const handleConfirmDelete = async (e) => {
     e.preventDefault();
@@ -69,27 +74,22 @@ const DashUsers = () => {
     if (!currentUser) return;
 
     try {
-      const res = await fetch(
-        `/api/post/deleteUser/${postIdToDelete}/${currentUser._id}`,
-        {
-          method: "DELETE",
-        }
-      );
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+        method: "DELETE",
+      });
       const data = await res.json();
       if (res.ok) {
         setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
+        setShowDeleteModal(false);
       } else {
         console.log("Error deleting a post:", data.message);
+        setShowDeleteModal(false);
       }
     } catch (error) {
       console.log(error);
     } finally {
       setShowDeleteModal(false);
     }
-  };
-
-  const handleCancelDelete = () => {
-    setShowDeleteModal(false);
   };
 
   return (
@@ -169,7 +169,7 @@ const DashUsers = () => {
         <ConfirmationBox
           onCancel={handleCancelDelete}
           onConfirm={handleConfirmDelete}
-          message="Are you sure you want to delete this post?"
+          message="Are you sure you want to delete this user?"
         />
       )}
     </section>
