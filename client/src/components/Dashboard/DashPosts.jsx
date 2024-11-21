@@ -2,30 +2,37 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import NoData from "../Reusables/displays/NoData";
+import ConfirmationBox from "../Reusables/displays/ConfirmationBox";
 
 const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [postIdToDelete, setPostIdToDelete] = useState("");
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
-        const data = await res.json();
-        console.log(data);
-        if (res.ok) {
-          setUserPosts(data.posts);
-          if (data.posts.length < 9) {
-            setShowMore(false);
+    if (currentUser && currentUser.isAdmin) {
+      const fetchPosts = async () => {
+        try {
+          const res = await fetch(
+            `/api/post/getposts?userId=${currentUser._id}`
+          );
+          const data = await res.json();
+          console.log(data);
+          if (res.ok) {
+            setUserPosts(data.posts);
+            if (data.posts.length < 9) {
+              setShowMore(false);
+            }
           }
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
+      };
+      if (currentUser.isAdmin) {
+        fetchPosts();
       }
-    };
-    if (currentUser.isAdmin) {
-      fetchPosts();
     }
   }, [currentUser._id]);
 
@@ -45,6 +52,43 @@ const DashPosts = () => {
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const handleOpenDeleteModal = (id) => {
+    setShowDeleteModal(true);
+    setPostIdToDelete(id);
+  };
+
+  const handleConfirmDelete = async (e) => {
+    e.preventDefault();
+
+    setShowDeleteModal(false);
+    if (!currentUser) return;
+
+    try {
+      const res = await fetch(
+        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const data = await res.json();
+      if (res.ok) {
+        setUserPosts((prev) =>
+          prev.filter((post) => post._id !== postIdToDelete)
+        );
+      } else {
+        console.log("Error deleting a post:", data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setShowDeleteModal(false);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false);
   };
 
   return (
@@ -90,11 +134,12 @@ const DashPosts = () => {
                       </Link>
                     </td>
                     <td className="border border-gray-200">
-                      <Link to="/delete-post">
-                        <button className="text-red-600 hover:underline">
-                          Delete
-                        </button>
-                      </Link>
+                      <button
+                        className="text-red-600 hover:underline"
+                        onClick={() => handleOpenDeleteModal(post._id)}
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -112,6 +157,13 @@ const DashPosts = () => {
           <NoData message="No post to display yet..." />
         )}
       </div>
+      {showDeleteModal && (
+        <ConfirmationBox
+          onCancel={handleCancelDelete}
+          onConfirm={handleConfirmDelete}
+          message="Are you sure you want to delete this post?"
+        />
+      )}
     </section>
   );
 };
