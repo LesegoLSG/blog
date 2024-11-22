@@ -1,11 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import CommentCard from "./CommentCard";
 
 const Comment = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
 
+  console.log("p", postId);
+  console.log("Comments", comments);
+
+  //   Get a comment from db
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        const res = await fetch(`/api/comment/getpostcomments/${postId}`);
+        if (res.ok) {
+          const data = await res.json();
+          setComments(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getComments();
+  }, [postId]);
+
+  //   Submit a comment
   const handleSubmitComment = async (e) => {
     e.preventDefault();
     console.log("comment", comment);
@@ -27,6 +49,7 @@ const Comment = ({ postId }) => {
       const data = await res.json();
       if (res.ok) {
         setComment("");
+        setComments([data, ...comments]);
       } else {
         console.log("error");
       }
@@ -84,52 +107,25 @@ const Comment = ({ postId }) => {
           </button>
         </div>
       </form>
-      <div className="space-y-4">
-        <p className="font-semibold flex">
-          Comments{" "}
-          <span className="flex justify-center border border-gray-400 w-6 h-6">
-            4
-          </span>
-        </p>
-        <div className="flex gap-x-2">
-          {/* image */}
-          <div className="">
-            <img
-              src="https://via.placeholder.com/40"
-              alt="avatar"
-              className="w-10 h-10 rounded-full"
-            />
-          </div>
-          {/* name,date and comment */}
-          <div className="w-full">
-            <div className="flex justify-start items-center gap-x-2">
-              <p className="font-semibold text-md">Lesego</p>
-              <p className="text-sm text-gray-400">a month ago</p>
-            </div>
-            <div>
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error
-                voluptatum, quaerat, reprehenderit laboriosam accusantium cumque
-                assumenda nihil minima ab aut, dolorum dignissimos quo
-                aspernatur! Accusamus eius hic iusto voluptas fugiat.
-              </p>
-            </div>
-          </div>
+
+      {comments.length === 0 ? (
+        <div>
+          <p className="font-semibold">No comments</p>
         </div>
-        <div className="border border-gray-200 rounded-lg p-4">
-          <div className="flex items-center space-x-2 mb-2">
-            <img
-              src="https://via.placeholder.com/40"
-              alt="avatar"
-              className="w-10 h-10 rounded-full"
-            />
-            <h3 className="font-semibold text-gray-800">Jane Smith</h3>
-          </div>
-          <p className="text-gray-600">
-            Great insights! Can't wait to implement these ideas.
+      ) : (
+        <div className="space-y-4">
+          <p className="font-semibold flex">
+            Comments{" "}
+            <span className="flex justify-center border border-gray-400 w-6 h-6">
+              {comments.length}
+            </span>
           </p>
+          {/* Comments */}
+          {comments.map((comment) => (
+            <CommentCard key={comment._id} comment={comment} />
+          ))}
         </div>
-      </div>
+      )}
     </div>
   );
 };
