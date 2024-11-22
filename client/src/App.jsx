@@ -11,6 +11,7 @@ import PrivateRoute from "./components/PrivateRoute.jsx/PrivateRoute";
 import AdminPrivateRoute from "./components/PrivateRoute.jsx/AdminPrivateRoute";
 import CreatePost from "./pages/CreatePost";
 import UpdatePost from "./pages/UpdatePost";
+import PostDisplay from "./pages/PostDisplay";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route element={<AdminPrivateRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/update-post/:postId" element={<UpdatePost />} />
+          <Route path="/post/:postSlug" element={<PostDisplay />} />
         </Route>
       </Routes>
       <Footer />
