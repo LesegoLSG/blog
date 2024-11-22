@@ -12,10 +12,12 @@ import AdminPrivateRoute from "./components/PrivateRoute.jsx/AdminPrivateRoute";
 import CreatePost from "./pages/CreatePost";
 import UpdatePost from "./pages/UpdatePost";
 import PostDisplay from "./pages/PostDisplay";
+import ScrollToTop from "./components/Reusables/Scroller/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -29,8 +31,8 @@ function App() {
         <Route element={<AdminPrivateRoute />}>
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/update-post/:postId" element={<UpdatePost />} />
-          <Route path="/post/:postSlug" element={<PostDisplay />} />
         </Route>
+        <Route path="/post/:postSlug" element={<PostDisplay />} />
       </Routes>
       <Footer />
     </BrowserRouter>
