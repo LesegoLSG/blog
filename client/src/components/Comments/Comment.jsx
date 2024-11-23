@@ -3,12 +3,15 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CommentCard from "./CommentCard";
 import { useNavigate } from "react-router-dom";
+import ConfirmationBox from "../Reusables/displays/ConfirmationBox";
 
 const Comment = ({ postId }) => {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [commentToDelete, setCommentToDelete] = useState(null);
 
   console.log("p", postId);
   console.log("Comments", comments);
@@ -99,6 +102,33 @@ const Comment = ({ postId }) => {
     );
   };
 
+  // Delete a comment
+  const handleDelete = async () => {
+    try {
+      if (!currentUser) {
+        navigate("/sign-in");
+      }
+      const res = await fetch(`/api/comment/deletecomment/${commentToDelete}`, {
+        method: "DELETE",
+      });
+
+      console.log("res:", res);
+
+      if (res.ok) {
+        const data = await res.json();
+        setComments(
+          comments.filter((comment) => comment._id !== commentToDelete)
+        );
+        console.log(data.message);
+        setShowDeleteModal(false);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  console.log("Comment to delete:", commentToDelete);
+
   return (
     <div className="max-w-4xl mx-auto mt-8 bg-white shadow-lg rounded-lg p-6">
       <h2 className="text-xl font-bold text-gray-800 mb-4">Comments</h2>
@@ -169,9 +199,21 @@ const Comment = ({ postId }) => {
               comment={comment}
               onLike={handleCommentLike}
               onEdit={handleEdit}
+              onDelete={(commentId) => {
+                setShowDeleteModal(true);
+                setCommentToDelete(commentId);
+              }}
             />
           ))}
         </div>
+      )}
+      {/* Delete confirmation */}
+      {showDeleteModal && (
+        <ConfirmationBox
+          onCancel={() => setShowDeleteModal(false)}
+          onConfirm={handleDelete}
+          message="Are you sure you want to delete this comment? Please note deleted comment cannot be retrieved."
+        />
       )}
     </div>
   );

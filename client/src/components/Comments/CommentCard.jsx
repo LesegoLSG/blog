@@ -3,7 +3,7 @@ import moment from "moment";
 import { BiLike, BiSolidLike } from "react-icons/bi";
 import { useSelector } from "react-redux";
 
-const CommentCard = ({ comment, onLike, onEdit }) => {
+const CommentCard = ({ comment, onLike, onEdit, onDelete }) => {
   const [user, setUser] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
   const [isEdit, setIsEdit] = useState(false);
@@ -121,12 +121,20 @@ const CommentCard = ({ comment, onLike, onEdit }) => {
           {/* Edit */}
           {currentUser &&
             (currentUser._id === comment.userId || currentUser.isAdmin) && (
-              <button
-                className="text-gray-600 hover:underline text-sm font-semibold"
-                onClick={handleOpenEditEditor}
-              >
-                Edit
-              </button>
+              <>
+                <button
+                  className="text-gray-600 hover:underline text-sm font-semibold"
+                  onClick={handleOpenEditEditor}
+                >
+                  Edit
+                </button>
+                <button
+                  className="text-gray-600 hover:underline text-sm font-semibold"
+                  onClick={() => onDelete(comment._id)}
+                >
+                  Delete
+                </button>
+              </>
             )}
         </div>
       </div>
