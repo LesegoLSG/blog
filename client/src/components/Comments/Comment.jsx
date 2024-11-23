@@ -89,6 +89,16 @@ const Comment = ({ postId }) => {
       console.log(error.message);
     }
   };
+
+  // update a comment
+  const handleEdit = async (comment, editedContent) => {
+    setComments((prevComments) =>
+      prevComments.map((c) =>
+        c._id === comment._id ? { ...c, content: editedContent } : c
+      )
+    );
+  };
+
   return (
     <div className="max-w-4xl mx-auto mt-8 bg-white shadow-lg rounded-lg p-6">
       <h2 className="text-xl font-bold text-gray-800 mb-4">Comments</h2>
@@ -158,6 +168,7 @@ const Comment = ({ postId }) => {
               key={comment._id}
               comment={comment}
               onLike={handleCommentLike}
+              onEdit={handleEdit}
             />
           ))}
         </div>
