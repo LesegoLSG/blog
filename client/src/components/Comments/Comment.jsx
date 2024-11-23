@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CommentCard from "./CommentCard";
+import { useNavigate } from "react-router-dom";
 
 const Comment = ({ postId }) => {
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
@@ -55,6 +57,36 @@ const Comment = ({ postId }) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleCommentLike = async (commentId) => {
+    try {
+      if (!currentUser) {
+        navigate("sign-in");
+        return;
+      }
+
+      const res = await fetch(`/api/comment/likecomment/${commentId}`, {
+        method: "PUT",
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setComments(
+          comments.map((comment) =>
+            comment._id === commentId
+              ? {
+                  ...comment,
+                  likes: data.likes,
+                  numberOfLikes: data.likes.length,
+                }
+              : comment
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error.message);
     }
   };
   return (
@@ -122,7 +154,11 @@ const Comment = ({ postId }) => {
           </p>
           {/* Comments */}
           {comments.map((comment) => (
-            <CommentCard key={comment._id} comment={comment} />
+            <CommentCard
+              key={comment._id}
+              comment={comment}
+              onLike={handleCommentLike}
+            />
           ))}
         </div>
       )}

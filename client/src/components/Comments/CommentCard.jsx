@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
+import { BiLike, BiSolidLike } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
-const CommentCard = ({ comment }) => {
+const CommentCard = ({ comment, onLike }) => {
   const [user, setUser] = useState(null);
+  const { currentUser } = useSelector((state) => state.user);
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -44,6 +47,21 @@ const CommentCard = ({ comment }) => {
         </div>
         <div className="my-2">
           <p className="text-sm text-gray-600">{comment.content}</p>
+        </div>
+        <div className="flex gap-x-2">
+          <button type="button" onClick={() => onLike(comment._id)}>
+            {currentUser && comment.likes.includes(currentUser._id) ? (
+              <BiSolidLike className="cursor-pointer text-blue-600 text-lg hover:scale-105 hover:text-gray-600" />
+            ) : (
+              <BiLike className="cursor-pointer text-lg hover:text-blue-600 hover:scale-105" />
+            )}
+          </button>
+          <p className="text-gray-600 text-xs font-semibold">
+            {comment.numberOfLikes > 0 &&
+              comment.numberOfLikes +
+                " " +
+                (comment.numberOfLikes === 1 ? "Like" : "Likes")}
+          </p>
         </div>
       </div>
     </div>
