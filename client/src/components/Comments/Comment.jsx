@@ -131,10 +131,10 @@ const Comment = ({ postId }) => {
 
   return (
     <div className="max-w-4xl mx-auto mt-8 bg-white shadow-lg rounded-lg p-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Comments</h2>
+      <h2 className="h1">Comments</h2>
       {currentUser ? (
         <div className="flex items-center gap-x-2 mb-4">
-          <span>Signed in as:</span>
+          <span className="h3">Signed in as:</span>
           <img
             src={currentUser.profilePicture}
             alt="user Image"
@@ -149,8 +149,8 @@ const Comment = ({ postId }) => {
         </div>
       ) : (
         <div className="flex justify-start items-center mb-2">
-          <span>Please sign in to comment.</span>
-          <button className="p-2 bg-blue-600">
+          <span className="h3">Please sign in to comment.</span>
+          <button className="button">
             <Link to="/sign-in">Sign In</Link>
           </button>
         </div>
@@ -171,10 +171,7 @@ const Comment = ({ postId }) => {
         ></textarea>
         <div className="flex justify-between items-center">
           <p>{200 - comment.length} characters remaining</p>
-          <button
-            type="submit"
-            className=" bg-blue-500 text-white p-2  rounded-lg hover:bg-blue-600 transition"
-          >
+          <button type="submit" className=" button">
             Submit Comment
           </button>
         </div>
@@ -186,7 +183,7 @@ const Comment = ({ postId }) => {
         </div>
       ) : (
         <div className="space-y-4">
-          <p className="font-semibold flex">
+          <p className="h3 flex">
             Comments{" "}
             <span className="flex justify-center border border-gray-400 w-6 h-6">
               {comments.length}

@@ -6,6 +6,14 @@ export default {
   ],
   theme: {
     extend: {
+  
+        colors:{
+          primary: '#008DDA',
+          secondary: '#41C9E2',
+          accent: '#d5f2f5',
+        },
+       
+    
       
         animation: {
           'spin-slow': 'spin 1.5s linear infinite',

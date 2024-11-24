@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-.ql-editor{
-    font-size:1.05rem;
+@layer components {
+  .button {
+    @apply min-w-28 px-2 py-1 bg-primary text-white rounded-lg shadow-md hover:bg-secondary transition-colors;
+  }
+  .title {
+    @apply text-3xl font-bold text-gray-800 mt-2 text-center;
+  }
+  .h1 {
+    @apply text-xl font-bold text-gray-800;
+  }
+  .h2 {
+    @apply text-lg font-bold text-gray-800;
+  }
+  .h3 {
+    @apply text-base font-semibold text-gray-800;
+  }
+}
+
+.ql-editor {
+  font-size: 1.05rem;
 }
