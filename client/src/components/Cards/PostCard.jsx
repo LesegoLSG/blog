@@ -24,8 +24,9 @@ const PostCard = ({ recentPost }) => {
 
         {/* Title */}
         <div>
-          <h2 className="h2">
-            {recentPost.title} Lesego Mhlongo i want to see
+          <h2 className="h3 line-clamp-3">
+            {recentPost.title} Lesego Mhlongo i want to seesas scdsfsd cdssd
+            sadasd sd
           </h2>
         </div>
 

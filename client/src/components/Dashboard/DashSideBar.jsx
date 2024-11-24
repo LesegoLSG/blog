@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
-import { SiBloglovin } from "react-icons/si";
+import { GiNotebook } from "react-icons/gi";
 import { RiMoreFill, RiLogoutCircleLine } from "react-icons/ri";
+import { FaCommentDots } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 const DashSideBar = () => {
@@ -33,13 +34,18 @@ const DashSideBar = () => {
       ? [
           {
             title: "Posts",
-            icon: <SiBloglovin />,
+            icon: <GiNotebook />,
             path: "/dashboard?tab=posts",
           },
           {
             title: "Users",
             icon: <MdOutlineDashboard />,
             path: "/dashboard?tab=users",
+          },
+          {
+            title: "Comments",
+            icon: <FaCommentDots />,
+            path: "/dashboard?tab=comments",
           },
         ]
       : []),
@@ -87,7 +93,10 @@ const DashSideBar = () => {
                 className="flex items-center gap-x-4 cursor-pointer"
               >
                 <div className="text-white hover:text-blue-200 text-lg font-medium item-center flex justify-start gap-x-4 cursor-pointer rounded-md">
-                  {menu.icon}
+                  <span className="flex justify-center items-center">
+                    {menu.icon}
+                  </span>
+
                   <span
                     className={`${!open && "hidden"} origin-left duration-200`}
                   >

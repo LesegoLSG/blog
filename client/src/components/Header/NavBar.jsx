@@ -30,6 +30,7 @@ const NavBar = () => {
         console.log(data.message);
       } else {
         dispatch(signout());
+        setDropdownOpen(false);
       }
     } catch (error) {
       console.log(error.message);
@@ -106,16 +107,17 @@ const NavBar = () => {
 
             {dropdownOpen && (
               <div className="absolute right-0 mt-2 w-60 bg-white shadow-lg rounded-lg py-2 z-10">
-                <p className="px-4 py-2 text-sm text-gray-700">
+                <p className="px-4 py-2 text-sm text-gray-700 font-semibold">
                   {currentUser.email}
                 </p>
                 <Link
-                  to="/dashboard?tab=profile"
                   onClick={() => setDropdownOpen(false)}
+                  to="/dashboard?tab=profile"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                 >
                   Profile
                 </Link>
+                <hr></hr>
                 <button
                   onClick={() => handleSignOut()}
                   className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

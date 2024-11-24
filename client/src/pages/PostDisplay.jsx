@@ -102,7 +102,7 @@ const PostDisplay = () => {
       {/* Recent posts */}
       <div className="max-w-4xl mx-auto mt-8 bg-white shadow-lg rounded-lg p-6">
         <h1 className="h1">Recent Posts</h1>
-        <div className="w-full grid grid-cols-3 gap-x-2">
+        <div className="w-full grid grid-col-1 md:grid-cols-3 gap-2">
           {recentPosts &&
             recentPosts.map((recentPost) => (
               <PostCard key={recentPost._id} recentPost={recentPost} />
