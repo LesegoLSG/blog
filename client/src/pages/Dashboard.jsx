@@ -5,6 +5,7 @@ import DashProfile from "../components/Dashboard/DashProfile";
 import DashPosts from "../components/Dashboard/DashPosts";
 import DashUsers from "../components/Dashboard/DashUsers";
 import DashComments from "../components/Dashboard/DashComments";
+import DashboardComp from "../components/Dashboard/DashboardComp";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const Dashboard = () => {
       </div>
       {/* Profile */}
       <div className="flex-1 h-screen">
+        {tab === "dashboard" && <DashboardComp />}
         {tab === "profile" && <DashProfile />}
         {tab === "posts" && <DashPosts />}
         {tab === "users" && <DashUsers />}

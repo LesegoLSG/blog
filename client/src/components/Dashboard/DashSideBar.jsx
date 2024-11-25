@@ -23,7 +23,6 @@ const DashSideBar = () => {
   }, [location.search]);
 
   const menus = [
-    { title: "Dashboard", icon: <MdOutlineDashboard />, path: "/portal" },
     {
       title: "Profile",
       icon: <FaUserFriends />,
@@ -32,6 +31,11 @@ const DashSideBar = () => {
     // Show post tab to the admin user only
     ...(currentUser?.isAdmin
       ? [
+          {
+            title: "Dashboard",
+            icon: <MdOutlineDashboard />,
+            path: "/dashboard?tab=dashboard",
+          },
           {
             title: "Posts",
             icon: <GiNotebook />,
@@ -45,7 +49,7 @@ const DashSideBar = () => {
           {
             title: "Comments",
             icon: <FaCommentDots />,
-            path: "/dashboard?tab=comments",
+            path: "/dashboard?tab=users",
           },
         ]
       : []),
@@ -67,7 +71,7 @@ const DashSideBar = () => {
       <div
         className={`${
           open ? "w-72" : "w-20"
-        } duration-300 h-screen p-5 pt-8 bg-[#1f2536] relative hidden sm:block`}
+        } duration-300 min-h-screen p-5 pt-8 bg-[#1f2536] relative hidden sm:block`}
       >
         <button
           onClick={() => setOpen(!open)}
