@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaSearch, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../../redux/theme/themeSlice";
@@ -7,10 +7,23 @@ import { signout } from "../../redux/user/userSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { theme } = useSelector((state) => state.theme);
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  // const path = useLocation().pathname;
+  const location = useLocation();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get("searchTerm");
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);
+    }
+  }, [location.search]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -37,6 +50,15 @@ const NavBar = () => {
     }
   };
 
+  // Handle submission of a search term
+  const handleSubmitSearch = async (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("searchTerm", searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
   return (
     <header
       className={`w-full px-4 py-4 md:px-16 flex justify-between items-center ${
@@ -51,14 +73,19 @@ const NavBar = () => {
       </div>
 
       {/* Search Bar */}
-      <div className="hidden md:flex items-center border rounded-md px-2 bg-gray-100">
+      <form
+        className="hidden md:flex items-center border rounded-md px-2 bg-gray-100"
+        onSubmit={handleSubmitSearch}
+      >
         <input
           type="text"
           placeholder="Search..."
           className="outline-none bg-transparent px-2 py-1 w-64 text-black"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <FaSearch className="text-gray-600 cursor-pointer" />
-      </div>
+      </form>
 
       {/* Links and Button for Desktop */}
       <div className="hidden md:flex items-center gap-6">

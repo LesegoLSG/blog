@@ -13,6 +13,7 @@ import CreatePost from "./pages/CreatePost";
 import UpdatePost from "./pages/UpdatePost";
 import PostDisplay from "./pages/PostDisplay";
 import ScrollToTop from "./components/Reusables/Scroller/ScrollToTop";
+import SearchPost from "./pages/SearchPost";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/about" element={<About />} />
         <Route path="/projects" element={<PageNotFound />} />
+        <Route path="/search" element={<SearchPost />} />
         <Route element={<PrivateRoute />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>

@@ -1,14 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
-const PostCard = ({ recentPost }) => {
+const PostCard = ({ post }) => {
   const navigate = useNavigate();
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
       {/* Image */}
       <img
-        src={recentPost.image}
-        alt={recentPost.title}
+        src={post.image}
+        alt={post.title}
         className="w-full h-48 object-cover"
       />
 
@@ -17,16 +18,17 @@ const PostCard = ({ recentPost }) => {
         {/* Date and category*/}
         <div className="flex justify-between items-center">
           <span className="text-xs uppercase text-gray-500 font-semibold">
-            {recentPost.category}
+            {post.category}
           </span>
-          <p className="text-xs text-gray-500 font-semibold">11/02/23</p>
+          <p className="text-xs text-gray-500 font-semibold">
+            {moment.utc(post.createdAt).local().fromNow()}
+          </p>
         </div>
 
         {/* Title */}
         <div>
           <h2 className="h3 line-clamp-3">
-            {recentPost.title} Lesego Mhlongo i want to seesas scdsfsd cdssd
-            sadasd sd
+            {post.title} Lesego Mhlongo i want to seesas scdsfsd cdssd sadasd sd
           </h2>
         </div>
 
@@ -34,7 +36,7 @@ const PostCard = ({ recentPost }) => {
         <div className="text-center">
           <button
             className="button"
-            onClick={() => navigate(`/post/${recentPost.slug}`)}
+            onClick={() => navigate(`/post/${post.slug}`)}
           >
             Read More
           </button>

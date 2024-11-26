@@ -105,7 +105,7 @@ const PostDisplay = () => {
         <div className="w-full grid grid-col-1 md:grid-cols-3 gap-2">
           {recentPosts &&
             recentPosts.map((recentPost) => (
-              <PostCard key={recentPost._id} recentPost={recentPost} />
+              <PostCard key={recentPost._id} post={recentPost} />
             ))}
         </div>
       </div>

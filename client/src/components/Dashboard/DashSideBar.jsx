@@ -29,7 +29,7 @@ const DashSideBar = () => {
       path: "/dashboard?tab=profile",
     },
     // Show post tab to the admin user only
-    ...(currentUser?.isAdmin
+    ...(currentUser && currentUser?.isAdmin
       ? [
           {
             title: "Dashboard",
