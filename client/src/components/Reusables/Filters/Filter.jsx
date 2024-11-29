@@ -21,8 +21,9 @@ const Filters = ({ searchData, handleChange, handleSearchSubmit }) => {
           onChange={handleChange}
           className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
         >
+          <option value="">Order</option>
           <option value="asc">Latest</option>
-          <option value="desc">oldest</option>
+          <option value="desc">Oldest</option>
         </select>
 
         {/* Category Dropdown */}

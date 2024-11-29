@@ -28,6 +28,7 @@ const DashProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser, loading } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
 
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
@@ -145,7 +146,13 @@ const DashProfile = () => {
   };
 
   return (
-    <div className="w-full p-4">
+    <section
+      className={`w-full min-h-[110vh] p-4 ${
+        theme === "light"
+          ? "bg-white text-gray-600"
+          : "bg-neutral-800 text-white"
+      }`}
+    >
       <h1 className="text-center font-bold text-xl mb-4">Profile</h1>
 
       <div className="w-full flex flex-col justify-center items-center">
@@ -199,7 +206,7 @@ const DashProfile = () => {
             </p>
           )}
 
-          <div className="w-full space-y-4">
+          <div className="w-full space-y-8">
             <InputField
               name="firstName"
               type="text"
@@ -236,19 +243,24 @@ const DashProfile = () => {
               validate={validateEmail}
               errorMessage="Invalid email eg john@gmail.com"
             />
-            <button type="submit" className="bg-blue-400 p-2">
+            <button type="submit" className="button">
               Update
             </button>
           </div>
         </form>
         <div className="w-full md:w-1/2 space-y-6">
-          <div className="flex justify-between items-center">
-            <span>Delete account</span>
-            <span onClick={handleSignOut}>Sign out</span>
+          <div className="flex justify-between items-center mt-4">
+            <span className="text-red-600 cursor-pointer">Delete account</span>
+            <span
+              className="text-primary cursor-default"
+              onClick={handleSignOut}
+            >
+              Sign out
+            </span>
           </div>
           {currentUser.isAdmin && (
             <button
-              className="w-full bg-blue-400 p-2"
+              className="w-full button"
               onClick={() => navigate("/create-post")}
             >
               Create a post
@@ -257,7 +269,7 @@ const DashProfile = () => {
         </div>
       </div>
       {loading && <LoadingSpinner />}
-    </div>
+    </section>
   );
 };
 

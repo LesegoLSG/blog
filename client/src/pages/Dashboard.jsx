@@ -6,9 +6,11 @@ import DashPosts from "../components/Dashboard/DashPosts";
 import DashUsers from "../components/Dashboard/DashUsers";
 import DashComments from "../components/Dashboard/DashComments";
 import DashboardComp from "../components/Dashboard/DashboardComp";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const location = useLocation();
+  const { theme } = useSelector((state) => state.theme);
   const [tab, setTab] = useState("profile");
 
   useEffect(() => {
@@ -20,13 +22,17 @@ const Dashboard = () => {
   }, [location.search]);
 
   return (
-    <section className="min-h-screen flex ">
+    <section className=" flex w-full">
       {/* SideBar */}
-      <div>
+      <div className="flex">
         <DashSideBar />
       </div>
       {/* Profile */}
-      <div className="flex-1 h-screen">
+      <div
+        className={`flex-1  ${
+          theme === "light" ? "bg-white" : "bg-neutral-800"
+        } `}
+      >
         {tab === "dashboard" && <DashboardComp />}
         {tab === "profile" && <DashProfile />}
         {tab === "posts" && <DashPosts />}

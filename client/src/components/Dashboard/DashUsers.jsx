@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import NoData from "../Reusables/displays/NoData";
 import ConfirmationBox from "../Reusables/displays/ConfirmationBox";
 
 const DashUsers = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
   const [users, setUsers] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -93,13 +93,25 @@ const DashUsers = () => {
   };
 
   return (
-    <section className="min-h-screen container mx-auto">
-      <div className="table-auto overflow-x-scroll md:mx-auto p-4 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300">
+    <section
+      className={`min-h-screen  ${
+        theme === "light"
+          ? "bg-white text-gray-600"
+          : "bg-neutral-800 text-white"
+      }`}
+    >
+      <div className=" p-4 max-w-full  overflow-x-auto">
         {currentUser.isAdmin && users.length > 0 ? (
-          <>
-            <table className="w-full border-collapse border border-gray-200">
+          <div>
+            <table className=" border-collapse border border-gray-900 w-full ">
               <thead>
-                <tr className="bg-gray-100">
+                <tr
+                  className={`${
+                    theme === "light"
+                      ? "text-gray-600"
+                      : "text-white bg-neutral-900"
+                  }`}
+                >
                   <th className="border border-gray-200 p-2">Date created</th>
                   <th className="border border-gray-200 p-2">
                     Profile Picture
@@ -111,15 +123,31 @@ const DashUsers = () => {
                   <th className="border border-gray-200 p-2">Delete</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody
+                className={`border-x ${
+                  theme === "light" ? "border-gray-200" : "border-gray-900"
+                }`}
+              >
                 {users.map((user) => (
                   <tr key={user._id} className="text-center">
                     {/* Date */}
-                    <td className="border border-gray-200 ">
+                    <td
+                      className={`border-b  text-sm font-semibold ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       {new Date(user.createdAt).toLocaleDateString()}
                     </td>
                     {/* ProfilePicture */}
-                    <td className="border border-gray-200">
+                    <td
+                      className={`border-b  ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       <img
                         src={user.profilePicture}
                         alt={user.title}
@@ -127,21 +155,53 @@ const DashUsers = () => {
                       />
                     </td>
                     {/* Full Name */}
-                    <td className="border border-gray-200 p-2 ">
+                    <td
+                      className={`border-b  p-2 ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       {user.firstName + " " + user.lastName}
                     </td>
                     {/* Email address */}
-                    <td className="border border-gray-200 p-2">{user.email}</td>
+                    <td
+                      className={`border-b  p-2 ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
+                      {user.email}
+                    </td>
                     {/* Contact */}
-                    <td className="border border-gray-200 p-2">
+                    <td
+                      className={`border-b  p-2 ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       {user.contact}
                     </td>
                     {/* isAdmin*/}
-                    <td className="border border-gray-200 p-2">
+                    <td
+                      className={`border-b  p-2 ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       {user.isAdmin ? "YES" : "No"}
                     </td>
                     {/* Delete */}
-                    <td className="border border-gray-200">
+                    <td
+                      className={`border-b border-r-0 p-2 ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       <button
                         className="text-red-600 hover:underline"
                         onClick={() => handleOpenDeleteModal(user._id)}
@@ -160,7 +220,7 @@ const DashUsers = () => {
                 </span>
               </div>
             )}
-          </>
+          </div>
         ) : (
           <NoData message="No users to display yet..." />
         )}

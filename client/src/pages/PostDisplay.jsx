@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import LoadingSpinner from "../components/Reusables/LoadingSpinner/LoadingSpinner";
 import Comment from "../components/Comments/Comment";
 import PostCard from "../components/Cards/PostCard";
+import ShareButton from "../components/Reusables/buttons/ShareButton";
 
 const PostDisplay = () => {
   const { postSlug } = useParams();
@@ -53,7 +54,8 @@ const PostDisplay = () => {
     }
   }, []);
 
-  console.log("recent", recentPosts);
+  // Dynamically generate the URL based on the post's slug
+  const currentURL = `${window.location.origin}/post/${postSlug}`;
 
   return (
     <section className=" bg-gray-50 min-h-screen p-2 md:p-6">
@@ -93,6 +95,13 @@ const PostDisplay = () => {
             className="text-gray-700 mt-4 leading-relaxed"
             dangerouslySetInnerHTML={{ __html: post && post.content }}
           ></div>
+        </div>
+        <div className="relative px-6">
+          <ShareButton
+            shareUrl={currentURL}
+            shareBtnSize={30}
+            shareSocialIconsSize={30}
+          />
         </div>
       </div>
 

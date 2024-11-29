@@ -3,10 +3,12 @@ import Filter from "../components/Reusables/Filters/Filter";
 import PostCard from "../components/Cards/PostCard";
 import { useLocation, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../components/Reusables/LoadingSpinner/LoadingSpinner";
+import { useSelector } from "react-redux";
 
 const SearchPost = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { theme } = useSelector((state) => state.theme);
   const [searchData, setSearchData] = useState({
     searchTerm: "",
     order: "asc",
@@ -22,7 +24,7 @@ const SearchPost = () => {
     if (e.target.id === "searchTerm") {
       setSearchData({ ...searchData, searchTerm: e.target.value });
     }
-    if (e.target.id === "sort") {
+    if (e.target.id === "order") {
       const order = e.target.value || "asc";
       setSearchData({ ...searchData, order: order });
     }
@@ -124,7 +126,11 @@ const SearchPost = () => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       {/* Sidebar */}
-      <aside className="w-full md:w-1/5 bg-gray-100 p-4">
+      <aside
+        className={`w-full md:w-1/5 p-4 ${
+          theme === "light" ? "bg-accent" : "bg-neutral-900"
+        }`}
+      >
         <Filter
           searchData={searchData}
           handleChange={handleChange}
@@ -133,7 +139,11 @@ const SearchPost = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="w-full md:w-4/5 p-4">
+      <main
+        className={`w-full md:w-4/5 p-4 ${
+          theme === "light" ? "bg-white" : "bg-neutral-800"
+        }`}
+      >
         <h1 className="text-start h1 mb-4">Posts</h1>
         {!loading && posts.length === 0 && (
           <div className="w-full h-96 flex justify-center items-center">
@@ -146,7 +156,7 @@ const SearchPost = () => {
           </div>
         )}
         {!loading && posts && (
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post, index) => (
               <PostCard key={index} post={post} />
             ))}

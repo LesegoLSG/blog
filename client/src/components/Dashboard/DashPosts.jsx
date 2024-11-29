@@ -6,6 +6,7 @@ import ConfirmationBox from "../Reusables/displays/ConfirmationBox";
 
 const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
   const [userPosts, setUserPosts] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -92,13 +93,25 @@ const DashPosts = () => {
   };
 
   return (
-    <section className="min-h-screen container mx-auto">
-      <div className="table-auto overflow-x-scroll md:mx-auto p-4 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300">
+    <section
+      className={`min-h-screen container mx-auto ${
+        theme === "light"
+          ? "bg-white text-gray-600"
+          : "bg-neutral-800 text-white"
+      }`}
+    >
+      <div className="p-4 max-w-full  overflow-x-auto">
         {currentUser.isAdmin && userPosts.length > 0 ? (
           <>
             <table className="w-full border-collapse border border-gray-200">
               <thead>
-                <tr className="bg-gray-100">
+                <tr
+                  className={`${
+                    theme === "light"
+                      ? "text-gray-600"
+                      : "text-white bg-neutral-900"
+                  }`}
+                >
                   <th className="border border-gray-200 p-2">Date Published</th>
                   <th className="border border-gray-200 p-2">Post Image</th>
                   <th className="border border-gray-200 p-2">Post Title</th>
@@ -107,33 +120,73 @@ const DashPosts = () => {
                   <th className="border border-gray-200 p-2">Delete</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody
+                className={`border-x ${
+                  theme === "light" ? "border-gray-200" : "border-gray-900"
+                }`}
+              >
                 {userPosts.map((post) => (
                   <tr key={post._id} className="text-center">
-                    <td className="border border-gray-200 ">
+                    <td
+                      className={`border-b  text-sm font-semibold ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       {new Date(post.createdAt).toLocaleDateString()}
                     </td>
-                    <td className="border border-gray-200">
+                    <td
+                      className={`border-b  ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       <img
                         src={post.image}
                         alt={post.title}
                         className="w-16 h-16 object-cover mx-auto"
                       />
                     </td>
-                    <td className="border border-gray-200 p-2 ">
+                    <td
+                      className={`border-b  ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       <Link to={`/post/${post.slug}`}>{post.title}</Link>
                     </td>
-                    <td className="border border-gray-200 p-2">
+                    <td
+                      className={`border-b  ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       {post.category}
                     </td>
-                    <td className="border border-gray-200 p-2">
+                    <td
+                      className={`border-b  ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       <Link to={`/update-post/${post._id}`}>
                         <button className="text-blue-600 hover:underline">
                           Edit
                         </button>
                       </Link>
                     </td>
-                    <td className="border border-gray-200">
+                    <td
+                      className={`border-b  ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       <button
                         className="text-red-600 hover:underline"
                         onClick={() => handleOpenDeleteModal(post._id)}

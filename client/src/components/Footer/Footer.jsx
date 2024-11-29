@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-8">
+    <footer className="w-full bg-gray-800 text-white py-8">
       <div className="max-w-screen-2xl mx-auto px-4 xl:px-28">
         <div className="flex flex-col lg:flex-row justify-between">
           {/* Navigation Links */}

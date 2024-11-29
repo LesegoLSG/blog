@@ -14,11 +14,14 @@ import UpdatePost from "./pages/UpdatePost";
 import PostDisplay from "./pages/PostDisplay";
 import ScrollToTop from "./components/Reusables/Scroller/ScrollToTop";
 import SearchPost from "./pages/SearchPost";
+import TopScrollerButton from "./components/Reusables/Scroller/TopScrollerButton";
 
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <TopScrollerButton />
+
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />

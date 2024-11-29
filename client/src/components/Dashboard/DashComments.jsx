@@ -5,6 +5,7 @@ import ConfirmationBox from "../Reusables/displays/ConfirmationBox";
 
 const DashComments = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
   const [comments, setComments] = useState([]);
   const [showMore, setShowMore] = useState(true);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -98,13 +99,25 @@ const DashComments = () => {
   };
 
   return (
-    <section className="min-h-screen container mx-auto">
-      <div className="table-auto overflow-x-scroll md:mx-auto p-4 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300">
+    <section
+      className={`min-h-screen container mx-auto ${
+        theme === "light"
+          ? "bg-white text-gray-600"
+          : "bg-neutral-800 text-white"
+      }`}
+    >
+      <div className="p-4 max-w-full  overflow-x-auto">
         {currentUser.isAdmin && comments && comments.length > 0 ? (
           <>
             <table className="w-full border-collapse border border-gray-200">
               <thead>
-                <tr className="bg-gray-100">
+                <tr
+                  className={`${
+                    theme === "light"
+                      ? "text-gray-600"
+                      : "text-white bg-neutral-900"
+                  }`}
+                >
                   <th className="border border-gray-200 p-2">Date created</th>
                   <th className="border border-gray-200 p-2">
                     Comment Content
@@ -120,28 +133,64 @@ const DashComments = () => {
                 {comments.map((comment) => (
                   <tr key={comment._id} className="text-center">
                     {/* Date */}
-                    <td className="border border-gray-200 ">
+                    <td
+                      className={`border-b p-2  text-sm font-semibold ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       {new Date(comment.createdAt).toLocaleDateString()}
                     </td>
 
                     {/* Content */}
-                    <td className="border border-gray-200 p-2 ">
+                    <td
+                      className={`text-start border-b p-2 ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       {comment.content}
                     </td>
                     {/* No Of likes */}
-                    <td className="border border-gray-200 p-2">
+                    <td
+                      className={`border-b p-2 ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       {comment.numberOfLikes}
                     </td>
                     {/* User ID */}
-                    <td className="border border-gray-200 p-2">
+                    <td
+                      className={`border-b p-2 ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       {comment.userId}
                     </td>
                     {/* Post ID*/}
-                    <td className="border border-gray-200 p-2">
+                    <td
+                      className={`border-b p-2 ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       {comment.postId}
                     </td>
                     {/* Delete */}
-                    <td className="border border-gray-200">
+                    <td
+                      className={`border-b p-2 ${
+                        theme === "light"
+                          ? "border-gray-200"
+                          : "border-gray-900"
+                      }`}
+                    >
                       <button
                         className="text-red-600 hover:underline"
                         onClick={() => handleOpenDeleteModal(comment._id)}

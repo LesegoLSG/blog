@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { useSelector } from "react-redux";
 import UserDashList from "./UserDashList";
 import PostDashList from "./PostDashList";
@@ -7,6 +6,7 @@ import CommentDashList from "./CommentDashList";
 import StatsDash from "./StatsDash";
 
 const DashboardComp = () => {
+  const { theme } = useSelector((state) => state.theme);
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
@@ -83,7 +83,13 @@ const DashboardComp = () => {
   }, [currentUser]);
 
   return (
-    <section className="w-full min-h-screen p-6">
+    <section
+      className={`w-full min-h-screen p-4 ${
+        theme === "light"
+          ? "bg-white text-gray-600"
+          : "bg-neutral-800 text-white"
+      }`}
+    >
       {/* Dashboards cards */}
       <StatsDash
         totalUsers={totalUsers}
@@ -95,7 +101,7 @@ const DashboardComp = () => {
       />
 
       {/* Post and user section*/}
-      <div className="w-full h-auto flex flex-col md:flex-row justify-center items-center my-4 space-x-4">
+      <div className="w-full h-auto flex flex-col md:flex-row justify-center items-center my-4 space-y-4 md:space-x-4">
         {/* Posts */}
         <PostDashList posts={posts} />
         {/* Users */}

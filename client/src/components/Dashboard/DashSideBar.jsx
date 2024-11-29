@@ -4,6 +4,7 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
 import { GiNotebook } from "react-icons/gi";
 import { RiMoreFill, RiLogoutCircleLine } from "react-icons/ri";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FaCommentDots } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
@@ -13,6 +14,7 @@ const DashSideBar = () => {
   const location = useLocation();
   const [tab, setTab] = useState("profile");
   const [showMoreOptions, setShowMoreOptions] = useState(false);
+  const { theme } = useSelector((state) => state.theme);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -49,16 +51,10 @@ const DashSideBar = () => {
           {
             title: "Comments",
             icon: <FaCommentDots />,
-            path: "/dashboard?tab=users",
+            path: "/dashboard?tab=comments",
           },
         ]
       : []),
-
-    {
-      title: "More Tab 2",
-      icon: <MdOutlineDashboard />,
-      path: "/portal/more2",
-    },
   ];
 
   // Split the menus into "main" and "more"
@@ -66,21 +62,24 @@ const DashSideBar = () => {
   const moreMenus = menus.slice(3);
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
       <div
         className={`${
           open ? "w-72" : "w-20"
-        } duration-300 min-h-screen p-5 pt-8 bg-[#1f2536] relative hidden sm:block`}
+        } duration-300  p-5 pt-8  relative hidden sm:block shadow-2xlS ${
+          theme === "light"
+            ? "text-gray-600 bg-accent"
+            : "text-white bg-neutral-900"
+        }`}
       >
         <button
           onClick={() => setOpen(!open)}
-          className="absolute cursor-pointer rounded-full -right-3 top-9 w-7 border-2 bg-blue-200 text-2xl"
+          className="absolute p-2 text-center cursor-pointer rounded-full -right-3 top-9 w-10 h-10 border-2 bg-primary text-2xl text-white"
         >
-          {open ? "←" : "→"}
+          {open ? <FaArrowLeft size={20} /> : <FaArrowRight size={20} />}
         </button>
         <div className="flex gap-x-4 items-center">
-          <h1 className={`cursor-pointer duration-500`}>Logo</h1>
           <h1
             className={`text-white origin-left font-medium text-xl duration-300 ${
               !open && "scale-0"
@@ -89,14 +88,14 @@ const DashSideBar = () => {
             Designer
           </h1>
         </div>
-        <ul className="h-[44rem] pt-6 text-left">
+        <ul className=" pt-6 text-left">
           {menus.map((menu, index) => (
             <li key={index} className="w-full p-2 mb-2 rounded-md">
               <Link
                 to={menu.path}
                 className="flex items-center gap-x-4 cursor-pointer"
               >
-                <div className="text-white hover:text-blue-200 text-lg font-medium item-center flex justify-start gap-x-4 cursor-pointer rounded-md">
+                <div className="hover:text-blue-200 text-lg font-medium item-center flex justify-start gap-x-4 cursor-pointer rounded-md">
                   <span className="flex justify-center items-center">
                     {menu.icon}
                   </span>

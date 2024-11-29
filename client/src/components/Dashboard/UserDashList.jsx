@@ -1,10 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const UserDashList = ({ users }) => {
+  const { theme } = useSelector((state) => state.theme);
   const navigate = useNavigate();
   return (
-    <div className="w-full md:w-1/3 shadow-lg rounded-lg">
+    <div
+      className={`w-full md:w-1/3 shadow-lg rounded-lg ${
+        theme === "light"
+          ? "bg-white text-gray-600"
+          : "bg-neutral-900 text-white"
+      }`}
+    >
       {/* header */}
       <div className="w-full flex justify-between items-center p-4">
         <h1 className="h2">Recent Users</h1>
@@ -17,11 +25,17 @@ const UserDashList = ({ users }) => {
       </div>
       {/* table */}
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse bg-white rounded-lg shadow-lg">
-          <thead className="bg-gray-200 text-gray-800">
+        <table className="w-full border-collapse  rounded-lg shadow-lg">
+          <thead
+            className={`${
+              theme === "light"
+                ? "bg-gray-300 text-gray-600"
+                : "bg-gray-600 text-white"
+            } transition-colors`}
+          >
             <tr>
-              <th className="p-4 text-left">User Image</th>
-              <th className="p-4 text-left">Full Name</th>
+              <th className="p-2 text-left">User Image</th>
+              <th className="p-2 text-left">Full Name</th>
             </tr>
           </thead>
           <tbody>
@@ -29,16 +43,20 @@ const UserDashList = ({ users }) => {
               users.map((user, index) => (
                 <tr
                   key={index}
-                  className="even:bg-gray-100 hover:bg-gray-200 transition-colors"
+                  className={`${
+                    theme === "light"
+                      ? "even:bg-gray-100 hover:bg-gray-200"
+                      : "even:bg-gray-500 hover:bg-gray-600"
+                  } transition-colors`}
                 >
-                  <td className="p-4">
+                  <td className="p-2">
                     <img
                       src={user.profilePicture}
                       alt="profile-image"
-                      className="h-12 w-12 object-cover rounded-md"
+                      className="h-12 w-12 object-cover rounded-full"
                     />
                   </td>
-                  <td className="p-4 text-gray-700">
+                  <td className="p-2 font-semibold">
                     {user.firstName} {user.lastName}
                   </td>
                 </tr>
