@@ -80,7 +80,7 @@ const NavBar = () => {
 
   return (
     <header
-      className={`w-full px-4 py-2 md:px-16 shadow-lg  ${
+      className={`w-full px-4 py-2 md:px-16 border-b-2  ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-gray-900 text-gray-600"
