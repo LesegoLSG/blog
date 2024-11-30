@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputField from "../components/Reusables/InputFields/InputField";
 import { FcGoogle } from "react-icons/fc";
 import {
@@ -13,6 +13,8 @@ import LoadingSpinner from "../components/Reusables/LoadingSpinner/LoadingSpinne
 import OAuthBtn from "../components/Reusables/buttons/OAuthBtn";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const [signUp, setSignUp] = useState({
     firstName: "",
     lastName: "",
@@ -23,7 +25,9 @@ const SignUp = () => {
   });
 
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [serverError, setServerError] = useState(null);
+  const [oAuthError, setOAuthError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (e) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value.trim() });
@@ -41,7 +45,7 @@ const SignUp = () => {
     // Create a new object without confirmPassword
     const { confirmPassword, ...signUpData } = signUp;
 
-    setLoading(true);
+    setIsLoading(true);
     try {
       const response = await fetch("/api/auth/sign-up", {
         method: "POST",
@@ -50,15 +54,17 @@ const SignUp = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Server Error: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.message);
       }
 
       const data = await response.json();
       console.log("Sign up data", data);
-      setLoading(false);
+      setIsLoading(false);
+      navigate(-1);
     } catch (error) {
-      console.log(error);
-      setLoading(false);
+      setServerError(error.message);
+      setIsLoading(false);
     }
   };
 
@@ -76,7 +82,7 @@ const SignUp = () => {
               You are more than welcomed
             </h3>
           </div>
-          <form className="flex flex-col gap-y-4 mt-6" onSubmit={handleSignUp}>
+          <form className="flex flex-col gap-y-6 mt-6" onSubmit={handleSignUp}>
             {/* First and last name inputs*/}
             <div className="flex justify-center items-center gap-x-2">
               <InputField
@@ -128,7 +134,7 @@ const SignUp = () => {
               value={signUp.password}
               onChange={handleInputChange}
               validate={validatePassword}
-              errorMessage="At least 6 characters"
+              errorMessage="Minimum 6 characters with at least one letter, one digit, and one special character"
             />
 
             {/*Confirm Password input */}
@@ -139,10 +145,11 @@ const SignUp = () => {
               value={signUp.confirmPassword}
               onChange={handleInputChange}
               validate={validatePassword}
-              errorMessage="At least 6 characters"
+              errorMessage="6 Characters long, at least one letter, one digit and a special character"
             />
+            {serverError && <p className="text-red-600">{serverError}</p>}
             {confirmPasswordError && (
-              <p className="text-red-600">Passwords do not match</p>
+              <p className="text-red-600">Passwords do not match.</p>
             )}
 
             <div className="flex justify-between items-center">
@@ -152,7 +159,7 @@ const SignUp = () => {
               </label>
               <p className="text-gray-700">Forgot password?</p>
             </div>
-            <button className="button-action mt-2" type="submit">
+            <button className="button mt-2" type="submit">
               Sign up
             </button>
 
@@ -171,7 +178,8 @@ const SignUp = () => {
               </span>{" "}
             </p>
           </form>
-          <OAuthBtn />
+          <OAuthBtn setOAuthError={setOAuthError} />
+          {oAuthError && <p className="text-red-600">{oAuthError}</p>}
         </div>
       </div>
       {/* right div */}
@@ -184,7 +192,7 @@ const SignUp = () => {
         </div>
         <img src={Lesego} className="w-full h-full object-cover" />
       </div>
-      {loading && <LoadingSpinner />}
+      {isLoading && <LoadingSpinner />}
     </section>
   );
 };

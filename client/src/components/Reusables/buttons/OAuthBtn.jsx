@@ -3,10 +3,14 @@ import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider, signInWithPopup, getAuth } from "firebase/auth";
 import { app } from "../../../firebase";
 import { useDispatch } from "react-redux";
-import { signInSuccess, signInStart } from "../../../redux/user/userSlice";
+import {
+  signInSuccess,
+  signInStart,
+  signInFailure,
+} from "../../../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
-const OAuthBtn = () => {
+const OAuthBtn = ({ setOAuthError }) => {
   const auth = getAuth(app);
 
   const dispatch = useDispatch();
@@ -16,7 +20,7 @@ const OAuthBtn = () => {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
 
-    // dispatch(signInStart());
+    dispatch(signInStart());
     try {
       const googleResults = await signInWithPopup(auth, provider);
       const res = await fetch("/api/auth/google", {
@@ -35,10 +39,11 @@ const OAuthBtn = () => {
       const data = await res.json();
       if (res.ok) {
         dispatch(signInSuccess(data));
-        navigate("/");
+        navigate(-1);
       }
     } catch (error) {
-      console.log(error);
+      dispatch(signInFailure());
+      setOAuthError(error.message);
     }
   };
 

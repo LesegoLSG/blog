@@ -25,6 +25,12 @@ export const signup = async (req,res,next) =>{
         await newUser.save();
         res.json('Sign up successfully');
     }catch(error){
+        if (error.code === 11000) { // MongoDB duplicate key error
+            const duplicateField = Object.keys(error.keyValue)[0];
+            const errorMessage = `${duplicateField.charAt(0).toUpperCase() + duplicateField.slice(1)} is already in use`;
+            console.log("errorMessage", errorMessage);
+            return next(errorHandler(409, errorMessage)); // Conflict status
+        }
         next(error);
     }
    

@@ -21,6 +21,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.user);
+  const [serverError, setServerError] = useState(null);
 
   const [signIn, setSignIn] = useState({
     email: "",
@@ -45,7 +46,8 @@ const SignIn = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Server Error: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(errorData.message);
       }
 
       navigate("/");
@@ -54,7 +56,7 @@ const SignIn = () => {
       console.log("Sign in data", data);
       dispatch(signInSuccess(data));
     } catch (error) {
-      console.log(error);
+      setServerError(error.message);
       dispatch(signInFailure());
     }
   };
@@ -100,7 +102,7 @@ const SignIn = () => {
               value={signIn.password}
               onChange={handleInputChange}
               validate={validatePassword}
-              errorMessage={"Should be at least 6 characters long"}
+              errorMessage="Minimum 6 characters with at least one letter, one digit, and one special character"
             />
             <div className="flex justify-between items-center">
               <label className="flex items-center gap-2 text-gray-700">
@@ -109,7 +111,8 @@ const SignIn = () => {
               </label>
               <p className="text-gray-700">Forgot password?</p>
             </div>
-            <button className="button-action mt-2" type="submit">
+            {serverError && <p className="text-red-600">{serverError}</p>}
+            <button className="button mt-2" type="submit">
               Login
             </button>
 
