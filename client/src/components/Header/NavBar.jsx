@@ -9,6 +9,8 @@ import Logo1 from "../../assets/Logo/Logo1.png";
 import Logo2 from "../../assets/Logo/Logo2.png";
 import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { LiaSignOutAltSolid } from "react-icons/lia";
+import ColorMode from "../Reusables/buttons/ColorMode";
+import ColorModeAlt from "../Reusables/buttons/ColorModeAlt";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -93,14 +95,14 @@ const NavBar = () => {
             <img
               src={Logo1}
               alt="logo1"
-              className="w-32 cursor-pointer"
+              className="w-28 cursor-pointer"
               onClick={() => navigate("/")}
             />
           ) : (
             <img
               src={Logo2}
               alt="logo2"
-              className="w-32 cursor-pointer"
+              className="w-28 cursor-pointer"
               onClick={() => navigate("/")}
             />
           )}
@@ -175,32 +177,10 @@ const NavBar = () => {
                     <ImProfile />
                     Profile
                   </Link>
-                  <button className="w-full text-left px-4 py-2">
-                    {theme === "light" ? (
-                      <div
-                        className="flex items-center gap-x-2"
-                        onClick={() => dispatch(toggleTheme())}
-                      >
-                        <MdDarkMode
-                          className="cursor-pointer text-black"
-                          size={20}
-                        />
-                        <span className="text-sm">Dark Mode</span>
-                      </div>
-                    ) : (
-                      <div
-                        className="flex items-center gap-x-2"
-                        onClick={() => dispatch(toggleTheme())}
-                      >
-                        <MdLightMode
-                          className="cursor-pointer text-yellow-600"
-                          size={20}
-                        />
-                        <span className="text-sm">Light Mode</span>
-                      </div>
-                    )}
-                  </button>
+                  <ColorMode toggleTheme={toggleTheme} />
                   <hr></hr>
+                  {/* Sign out button */}
+
                   <button
                     onClick={() => handleSignOut()}
                     className="w-full flex items-center gap-x-2 text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -212,9 +192,15 @@ const NavBar = () => {
               )}
             </div>
           ) : (
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
-              <Link to="/sign-in">Sign In</Link>
-            </button>
+            <div className="flex items-center gap-x-2">
+              <button className="button-alt hidden md:block ">
+                <Link to="/sign-up">Sign Up for free</Link>
+              </button>
+              <button className="button hidden md:block ">
+                <Link to="/sign-in">Sign In</Link>
+              </button>
+              <ColorModeAlt toggleTheme={toggleTheme} />
+            </div>
           )}
 
           {/* Mobile Menu Icon and avator*/}
@@ -230,8 +216,14 @@ const NavBar = () => {
         </div>
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="absolute top-16 left-0 w-full bg-white shadow-lg flex flex-col items-center md:hidden z-50">
-            <ul className="flex flex-col gap-4 text-black font-semibold py-6">
+          <div
+            className={`absolute top-12 left-0 w-full shadow-lg flex flex-col items-center md:hidden z-50 ${
+              theme === "light"
+                ? "bg-white text-gray-800"
+                : "bg-gray-900 text-white"
+            }`}
+          >
+            <ul className="flex flex-col gap-4 font-semibold py-6">
               <li>
                 <Link
                   to="/"
@@ -261,19 +253,25 @@ const NavBar = () => {
               </li>
             </ul>
             {!currentUser && (
-              <button
-                onClick={toggleMenu}
-                className="bg-blue-600 text-white px-4 py-2 mb-4 rounded-md hover:bg-blue-700"
-              >
-                Sign In
-              </button>
+              <div className="flex flex-col items-center gap-y-4">
+                <ColorMode toggleTheme={toggleTheme} />
+                <button
+                  onClick={() => navigate("/sign-up")}
+                  className="button-alt"
+                >
+                  Sign up for free
+                </button>
+                <button onClick={() => navigate("/sign-in")} className="button">
+                  Sign In
+                </button>
+              </div>
             )}
           </div>
         )}
       </div>
 
       <form
-        className={`flex  md:hidden justify-center items-center p-1 my-2 bg-gray-100 shadow-sm rounded-md ${
+        className={`flex  md:hidden justify-between items-center p-1 my-2 bg-gray-100 shadow-sm rounded-md ${
           location.pathname === "/search" ? "hidden" : "block"
         }`}
         onSubmit={handleSubmitSearch}
@@ -281,7 +279,7 @@ const NavBar = () => {
         <input
           type="text"
           placeholder="Search"
-          className="outline-none bg-transparent px-2 py-1 w-3/4 text-black rounded-l-md border-r border-gray-300"
+          className="outline-none bg-transparent px-2 py-1 w-3/4 text-black rounded-l-md "
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />

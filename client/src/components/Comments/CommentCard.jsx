@@ -100,7 +100,7 @@ const CommentCard = ({ comment, onLike, onEdit, onDelete }) => {
               </div>
             </div>
           ) : (
-            <p className="text-sm text-gray-600">{comment.content}</p>
+            <p className="text-sm text-gray-500">{comment.content}</p>
           )}
         </div>
         {/* likes */}

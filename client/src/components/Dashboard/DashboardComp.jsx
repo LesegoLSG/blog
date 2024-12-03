@@ -86,8 +86,8 @@ const DashboardComp = () => {
     <section
       className={`w-full min-h-screen p-4 ${
         theme === "light"
-          ? "bg-white text-gray-600"
-          : "bg-neutral-800 text-white"
+          ? "bg-white text-gray-800"
+          : "bg-neutral-900 text-white"
       }`}
     >
       {/* Dashboards cards */}

@@ -69,8 +69,8 @@ const DashSideBar = () => {
           open ? "w-72" : "w-20"
         } duration-300  p-5 pt-8  relative hidden sm:block shadow-2xlS ${
           theme === "light"
-            ? "text-gray-600 bg-accent"
-            : "text-white bg-neutral-900"
+            ? "text-gray-800 bg-gray-100"
+            : "text-white bg-neutral-800"
         }`}
       >
         <button

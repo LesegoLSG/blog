@@ -8,6 +8,7 @@ import ConfirmationBox from "../Reusables/displays/ConfirmationBox";
 const Comment = ({ postId }) => {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -130,7 +131,11 @@ const Comment = ({ postId }) => {
   console.log("Comment to delete:", commentToDelete);
 
   return (
-    <div className="max-w-4xl mx-auto mt-8 bg-white shadow-lg rounded-lg p-6">
+    <div
+      className={`max-w-4xl mx-auto mt-8 shadow-lg rounded-lg p-2 md:p-6 ${
+        theme === "light" ? "bg-white" : "bg-neutral-800"
+      }`}
+    >
       <h2 className="h1">Comments</h2>
       {currentUser ? (
         <div className="flex items-center gap-x-2 mb-4">
@@ -141,14 +146,14 @@ const Comment = ({ postId }) => {
             className="w-10 h-10 rounded-full"
           />
 
-          <span className="font-bold text-gray-600 text-sm">
+          <span className="font-bold text-sm">
             <Link to="/dashboard?tab=profile">
               {currentUser.lastName} {currentUser.firstName}
             </Link>
           </span>
         </div>
       ) : (
-        <div className="flex justify-start items-center mb-2">
+        <div className="flex justify-start gap-x-2 items-center mb-2">
           <span className="h3">Please sign in to comment.</span>
           <button className="button">
             <Link to="/sign-in">Sign In</Link>
@@ -162,7 +167,9 @@ const Comment = ({ postId }) => {
         onSubmit={handleSubmitComment}
       >
         <textarea
-          className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-gray-500"
+          className={`w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm ${
+            theme === "light" ? "bg-white" : "bg-neutral-800"
+          }`}
           rows="4"
           placeholder="Write your comment..."
           maxLength="200"
@@ -170,9 +177,12 @@ const Comment = ({ postId }) => {
           value={comment}
         ></textarea>
         <div className="flex justify-between items-center">
-          <p>{200 - comment.length} characters remaining</p>
+          <p>
+            <span className="font-bold">{200 - comment.length}</span> characters
+            remaining
+          </p>
           <button type="submit" className=" button">
-            Submit Comment
+            Submit
           </button>
         </div>
       </form>

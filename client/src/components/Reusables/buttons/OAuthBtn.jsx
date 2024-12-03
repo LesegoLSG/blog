@@ -49,7 +49,7 @@ const OAuthBtn = ({ setOAuthError }) => {
 
   return (
     <button
-      className="w-full flex justify-center items-center gap-x-2 p-2 border border-gray-600 rounded-md hover:bg-accent"
+      className="w-full flex justify-center items-center gap-x-2 button-alt"
       onClick={handleGoogleClick}
     >
       <FcGoogle />

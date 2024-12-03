@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import NoData from "../Reusables/displays/NoData";
 import ConfirmationBox from "../Reusables/displays/ConfirmationBox";
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 
 const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -94,10 +96,10 @@ const DashPosts = () => {
 
   return (
     <section
-      className={`min-h-screen container mx-auto ${
+      className={`min-h-screen ${
         theme === "light"
-          ? "bg-white text-gray-600"
-          : "bg-neutral-800 text-white"
+          ? "bg-white text-gray-800"
+          : "bg-neutral-900 text-white"
       }`}
     >
       <div className="p-4 max-w-full  overflow-x-auto">
@@ -128,7 +130,7 @@ const DashPosts = () => {
                 {userPosts.map((post) => (
                   <tr key={post._id} className="text-center">
                     <td
-                      className={`border-b  text-sm font-semibold ${
+                      className={`border-b  font-semibold ${
                         theme === "light"
                           ? "border-gray-200"
                           : "border-gray-900"
@@ -174,11 +176,11 @@ const DashPosts = () => {
                           : "border-gray-900"
                       }`}
                     >
-                      <Link to={`/update-post/${post._id}`}>
-                        <button className="text-blue-600 hover:underline">
-                          Edit
-                        </button>
-                      </Link>
+                      <div className="flex justify-center items-center">
+                        <Link to={`/update-post/${post._id}`}>
+                          <FaEdit size={20} className="text-green-600" />
+                        </Link>
+                      </div>
                     </td>
                     <td
                       className={`border-b  ${
@@ -187,12 +189,13 @@ const DashPosts = () => {
                           : "border-gray-900"
                       }`}
                     >
-                      <button
-                        className="text-red-600 hover:underline"
-                        onClick={() => handleOpenDeleteModal(post._id)}
-                      >
-                        Delete
-                      </button>
+                      <div className="flex justify-center items-center">
+                        <MdDelete
+                          className="text-red-600 hover:underline cursor-pointer"
+                          onClick={() => handleOpenDeleteModal(post._id)}
+                          size={20}
+                        />
+                      </div>
                     </td>
                   </tr>
                 ))}

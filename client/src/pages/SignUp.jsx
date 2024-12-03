@@ -11,9 +11,11 @@ import {
 import Lesego from "../assets/Lesego.jpg";
 import LoadingSpinner from "../components/Reusables/LoadingSpinner/LoadingSpinner";
 import OAuthBtn from "../components/Reusables/buttons/OAuthBtn";
+import { useSelector } from "react-redux";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { theme } = useSelector((state) => state.theme);
 
   const [signUp, setSignUp] = useState({
     firstName: "",
@@ -69,7 +71,13 @@ const SignUp = () => {
   };
 
   return (
-    <section className="w-full min-h-screen flex justify-center items-center">
+    <section
+      className={`w-full min-h-screen flex justify-center items-center ${
+        theme === "light"
+          ? "bg-white text-gray-800"
+          : "bg-neutral-900 text-white"
+      }`}
+    >
       {/* left div */}
       <div className="w-full md:w-1/2 h-full flex justify-center items-center p-6 md:p-32">
         <div className="w-full h-full flex flex-col">
@@ -77,10 +85,8 @@ const SignUp = () => {
             Suite<span className="text-accent-hover">Spot</span>
           </h1>
           <div className="mt-12">
-            <h1 className="text-gray-800 text-3xl">Sign up</h1>
-            <h3 className="text-gray-800 text-xl">
-              You are more than welcomed
-            </h3>
+            <h1 className=" text-3xl">Sign up</h1>
+            <h3 className=" text-xl">You are more than welcomed</h3>
           </div>
           <form className="flex flex-col gap-y-6 mt-6" onSubmit={handleSignUp}>
             {/* First and last name inputs*/}
@@ -153,11 +159,11 @@ const SignUp = () => {
             )}
 
             <div className="flex justify-between items-center">
-              <label className="flex items-center gap-2 text-gray-700">
+              <label className="flex items-center gap-2">
                 <input type="checkbox" className=" text-primary" />
                 Remember me
               </label>
-              <p className="text-gray-700">Forgot password?</p>
+              <p>Forgot password?</p>
             </div>
             <button className="button mt-2" type="submit">
               Sign up
@@ -166,13 +172,13 @@ const SignUp = () => {
             {/* Divider with "or" */}
             <div className="flex items-center my-4">
               <hr className="flex-grow border-gray-400" />
-              <span className="px-4 text-gray-600">or</span>
+              <span className="px-4">or</span>
               <hr className="flex-grow border-gray-400" />
             </div>
 
-            <p className="text-gray-700">
+            <p className=" mb-4">
               Already have an account?
-              <span className="font-semibold cursor-pointer">
+              <span className="font-semibold cursor-pointer underline">
                 {" "}
                 <Link to="/sign-in"> Sign In</Link>
               </span>{" "}

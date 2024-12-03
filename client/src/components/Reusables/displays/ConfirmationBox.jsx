@@ -9,16 +9,10 @@ const ConfirmationBox = ({ message, onConfirm, onCancel }) => {
         </h2>
         <p className="text-gray-600 mb-6">{message}</p>
         <div className="flex justify-between space-x-4">
-          <button
-            onClick={onCancel}
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded"
-          >
+          <button onClick={onCancel} className="button-cancel">
             Cancel
           </button>
-          <button
-            onClick={onConfirm}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
+          <button onClick={onConfirm} className="button">
             Confirm
           </button>
         </div>

@@ -7,7 +7,7 @@ const PostDashList = ({ posts }) => {
   const navigate = useNavigate();
   return (
     <div
-      className={`w-full md:w-2/3 shadow-2xl rounded-lg ${
+      className={`w-full md:w-2/3 shadow-2xl rounded-lg text-base ${
         theme === "light"
           ? "bg-white text-gray-600"
           : "bg-neutral-900 text-white"

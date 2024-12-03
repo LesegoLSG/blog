@@ -141,10 +141,12 @@ const SearchPost = () => {
       {/* Main Content */}
       <main
         className={`w-full md:w-4/5 p-4 ${
-          theme === "light" ? "bg-white" : "bg-neutral-800"
+          theme === "light"
+            ? "bg-white text-gray-800"
+            : "bg-neutral-800 text-white"
         }`}
       >
-        <h1 className="text-start h1 mb-4">Posts</h1>
+        <h1 className="text-start h1 mb-4">Posts:</h1>
         {!loading && posts.length === 0 && (
           <div className="w-full h-96 flex justify-center items-center">
             <h1 className="h1">Sorry...No search found.</h1>

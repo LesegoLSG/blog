@@ -1,6 +1,7 @@
 import React from "react";
 import { FaLightbulb, FaUsers, FaCode, FaRocket } from "react-icons/fa"; // Icons for sections
 import BannerImage from "../assets/HomePageImage/BannerImage.jpg"; // Placeholder image
+import DarkBannerImage from "../assets/HomePageImage/DarkBannerImage.png"; // Placeholder image
 import { useSelector } from "react-redux";
 
 const AboutUs = () => {
@@ -9,18 +10,18 @@ const AboutUs = () => {
     <section
       className={`w-full py-16 ${
         theme === "light"
-          ? "bg-white text-gray-600"
+          ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"
       }`}
     >
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Story Section */}
         <div className="relative py-24">
-          <div className="absolute inset-0 z-0 overflow-hidden border border-accent rounded-lg p-1">
+          <div className="absolute inset-0 z-0 overflow-hidden border  border-accent rounded-lg p-1">
             <img
-              src={BannerImage}
+              src={DarkBannerImage}
               alt="Our Story"
-              className="w-full h-full object-cover opacity-30 rounded-lg"
+              className="w-full h-full object-cover opacity-60 rounded-lg"
             />
           </div>
           <div className="relative z-10 text-center text-white">
@@ -43,9 +44,7 @@ const AboutUs = () => {
         {/* People Section */}
         <div className="flex flex-col-reverse md:flex-row gap-16 py-24">
           <div className="flex-1">
-            <h3 className="text-3xl font-extrabold text-accent  mb-4">
-              Meet the Team
-            </h3>
+            <h3 className="text-3xl font-extrabold  mb-4">Meet the Team</h3>
             <p className="text-lg  mb-6">
               We are a diverse team of developers, designers, and content
               creators passionate about making complex tech topics accessible.
@@ -63,7 +62,7 @@ const AboutUs = () => {
               </div>
             </div>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 border border-accent p-1 rounded-lg">
             <img
               src={BannerImage}
               alt="Tech Team"
@@ -73,8 +72,11 @@ const AboutUs = () => {
         </div>
 
         {/* Conflict Section */}
-        <div className="bg-gray-900 text-white py-24 relative">
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-black opacity-50"></div>
+        <div
+          className={`${
+            theme === "light" ? "bg-gray-100" : "bg-neutral-800 text-white"
+          } text-gray-700 py-24 relative`}
+        >
           <div className="relative z-10 text-center">
             <h2 className="text-4xl font-extrabold mb-4">The Challenge</h2>
             <p className="text-lg max-w-2xl mx-auto mb-8">
@@ -96,12 +98,12 @@ const AboutUs = () => {
         <div className="relative py-24">
           <div className="absolute inset-0 z-0 overflow-hidden">
             <img
-              src={BannerImage}
+              src={DarkBannerImage}
               alt="Resolution"
-              className="w-full h-full object-cover opacity-40"
+              className="w-full h-full object-cover opacity-60"
             />
           </div>
-          <div className="relative z-10 text-center">
+          <div className="relative z-10 text-center text-white">
             <h2 className="text-4xl font-extrabold mb-4">Our Solution</h2>
             <p className="text-lg mb-8 max-w-3xl mx-auto">
               We deliver high-quality, accessible content that helps developers
@@ -119,12 +121,14 @@ const AboutUs = () => {
         </div>
 
         {/* The Sequel Section */}
-        <div className="bg-gray-100 py-24">
+        <div
+          className={`${
+            theme === "light" ? "bg-gray-100" : "bg-neutral-800 text-white"
+          } py-24`}
+        >
           <div className="text-center">
-            <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
-              What’s Next for Us
-            </h2>
-            <p className="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
+            <h2 className="text-4xl font-extrabold mb-4">What’s Next for Us</h2>
+            <p className="text-lg  max-w-3xl mx-auto mb-8">
               Our journey is far from over. We’re continuously evolving,
               collaborating with industry leaders, and planning new initiatives
               to foster a thriving community of tech professionals. Stay tuned

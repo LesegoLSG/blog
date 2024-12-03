@@ -149,8 +149,8 @@ const DashProfile = () => {
     <section
       className={`w-full min-h-[110vh] p-4 ${
         theme === "light"
-          ? "bg-white text-gray-600"
-          : "bg-neutral-800 text-white"
+          ? "bg-white text-gray-800"
+          : "bg-neutral-900 text-white"
       }`}
     >
       <h1 className="text-center font-bold text-xl mb-4">Profile</h1>
@@ -250,13 +250,7 @@ const DashProfile = () => {
         </form>
         <div className="w-full md:w-1/2 space-y-6">
           <div className="flex justify-between items-center mt-4">
-            <span className="text-red-600 cursor-pointer">Delete account</span>
-            <span
-              className="text-primary cursor-default"
-              onClick={handleSignOut}
-            >
-              Sign out
-            </span>
+            <span className="button-cancel">Delete account</span>
           </div>
           {currentUser.isAdmin && (
             <button

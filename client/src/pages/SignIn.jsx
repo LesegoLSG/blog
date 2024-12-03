@@ -21,6 +21,7 @@ const SignIn = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
   const [serverError, setServerError] = useState(null);
 
   const [signIn, setSignIn] = useState({
@@ -62,14 +63,18 @@ const SignIn = () => {
   };
 
   return (
-    <section className="w-full min-h-screen flex justify-center items-center">
+    <section
+      className={`w-full min-h-screen flex justify-center items-center  ${
+        theme === "light"
+          ? "bg-white text-gray-800"
+          : "bg-neutral-900 text-white"
+      }`}
+    >
       {/* Left div */}
       <div className="hidden md:block w-1/2 h-full relative">
         <div className="absolute inset-0 flex flex-col justify-center items-center">
-          <h1 className="text-white text-3xl">Warm stay</h1>
-          <h3 className="text-white text-xl">
-            Enjoy the stay inour luxury hotel
-          </h3>
+          <h1 className=" text-3xl">Warm stay</h1>
+          <h3 className=" text-xl">Enjoy the stay inour luxury hotel</h3>
         </div>
         <img src={Lesego} className="w-full h-full object-cover" />
       </div>
@@ -80,8 +85,8 @@ const SignIn = () => {
             Suite<span className="text-accent-hover">Spot</span>
           </h1>
           <div className="mt-12">
-            <h1 className="text-gray-800 text-3xl">Login</h1>
-            <h3 className="text-gray-800 text-xl">
+            <h1 className=" text-3xl">Login</h1>
+            <h3 className=" text-xl">
               Welcome Back! Please enter your details
             </h3>
           </div>
@@ -105,11 +110,11 @@ const SignIn = () => {
               errorMessage="Minimum 6 characters with at least one letter, one digit, and one special character"
             />
             <div className="flex justify-between items-center">
-              <label className="flex items-center gap-2 text-gray-700">
+              <label className="flex items-center gap-2">
                 <input type="checkbox" className=" text-primary" />
                 Remember me
               </label>
-              <p className="text-gray-700">Forgot password?</p>
+              <p className="">Forgot password?</p>
             </div>
             {serverError && <p className="text-red-600">{serverError}</p>}
             <button className="button mt-2" type="submit">
@@ -119,13 +124,13 @@ const SignIn = () => {
             {/* Divider with "or" */}
             <div className="flex items-center my-4">
               <hr className="flex-grow border-gray-400" />
-              <span className="px-4 text-gray-600">or</span>
+              <span className="px-4">or</span>
               <hr className="flex-grow border-gray-400" />
             </div>
 
             {/* O Auth button */}
 
-            <p className="text-gray-700">
+            <p className="">
               Don't have an account yet?
               <span className="font-semibold cursor-pointer">
                 {" "}

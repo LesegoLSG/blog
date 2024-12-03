@@ -32,7 +32,7 @@ const Home = () => {
     <section
       className={`w-full  min-h-screen  ${
         theme === "light"
-          ? "bg-white text-gray-600"
+          ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"
       }`}
     >
@@ -48,18 +48,31 @@ const Home = () => {
             Sharing the latest in programming trends, full-stack development
             insights, and tech innovation
           </p>
-          <div className="flex gap-x-4">
-            <button
-              className="button-alt"
-              onClick={() => scrollToRef("recent-posts")}
+
+          <div className="w-full min-h-96  border border-accent p-1 rounded-lg">
+            <div
+              className="bg-fixed bg-center bg-cover rounded-lg"
+              style={{ backgroundImage: `url(${BannerImage})` }}
             >
-              What’s New
-            </button>
-            <button className="button" onClick={() => navigate("/search")}>
-              Explore Now
-            </button>
+              <div className="h-96 bg-opacity-75 flex flex-col justify-center items-center space-y-6">
+                <div className="flex gap-x-4">
+                  <button
+                    className="button-alt"
+                    onClick={() => scrollToRef("recent-posts")}
+                  >
+                    What’s New
+                  </button>
+                  <button
+                    className="button"
+                    onClick={() => navigate("/search")}
+                  >
+                    Explore Now
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="w-full h-96  p-1">
+          {/* <div className="w-full h-96  p-1">
             <div className="w-full h-full p-1 border border-accent rounded-xl ">
               <img
                 src={BannerImage}
@@ -67,7 +80,7 @@ const Home = () => {
                 className="w-full h-full object-cover rounded-xl"
               />
             </div>
-          </div>
+          </div> */}
           {/* Post Cards display */}
           <div className="w-full h-auto" id="recent-posts">
             <h1 className="h1 text-center my-4">Recent Posts</h1>

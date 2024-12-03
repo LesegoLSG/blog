@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import NoData from "../Reusables/displays/NoData";
 import ConfirmationBox from "../Reusables/displays/ConfirmationBox";
+import { MdDelete } from "react-icons/md";
 
 const DashUsers = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -96,8 +97,8 @@ const DashUsers = () => {
     <section
       className={`min-h-screen  ${
         theme === "light"
-          ? "bg-white text-gray-600"
-          : "bg-neutral-800 text-white"
+          ? "bg-white text-gray-800"
+          : "bg-neutral-900 text-white"
       }`}
     >
       <div className=" p-4 max-w-full  overflow-x-auto">
@@ -132,7 +133,7 @@ const DashUsers = () => {
                   <tr key={user._id} className="text-center">
                     {/* Date */}
                     <td
-                      className={`border-b  text-sm font-semibold ${
+                      className={`border-b font-semibold ${
                         theme === "light"
                           ? "border-gray-200"
                           : "border-gray-900"
@@ -202,12 +203,13 @@ const DashUsers = () => {
                           : "border-gray-900"
                       }`}
                     >
-                      <button
-                        className="text-red-600 hover:underline"
-                        onClick={() => handleOpenDeleteModal(user._id)}
-                      >
-                        Delete
-                      </button>
+                      <div className="flex justify-center items-center cursor-pointer">
+                        <MdDelete
+                          className="text-red-600 hover:underline"
+                          onClick={() => handleOpenDeleteModal(user._id)}
+                          size={20}
+                        />
+                      </div>
                     </td>
                   </tr>
                 ))}

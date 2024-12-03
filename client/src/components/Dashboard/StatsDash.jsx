@@ -16,8 +16,8 @@ const StatsDash = ({
     <div
       className={`w-full flex justify-center items-center ${
         theme === "light"
-          ? "bg-white text-gray-600"
-          : "bg-neutral-800 text-white"
+          ? "bg-white text-gray-800"
+          : "bg-neutral-900 text-white"
       }`}
     >
       <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 ">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import NoData from "../Reusables/displays/NoData";
 import ConfirmationBox from "../Reusables/displays/ConfirmationBox";
+import { MdDelete } from "react-icons/md";
 
 const DashComments = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -102,8 +103,8 @@ const DashComments = () => {
     <section
       className={`min-h-screen container mx-auto ${
         theme === "light"
-          ? "bg-white text-gray-600"
-          : "bg-neutral-800 text-white"
+          ? "bg-white text-gray-800"
+          : "bg-neutral-900 text-white"
       }`}
     >
       <div className="p-4 max-w-full  overflow-x-auto">
@@ -129,12 +130,16 @@ const DashComments = () => {
                   <th className="border border-gray-200 p-2">Delete</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody
+                className={`border-x ${
+                  theme === "light" ? "border-gray-200" : "border-gray-900"
+                }`}
+              >
                 {comments.map((comment) => (
                   <tr key={comment._id} className="text-center">
                     {/* Date */}
                     <td
-                      className={`border-b p-2  text-sm font-semibold ${
+                      className={`border-b p-2  font-semibold ${
                         theme === "light"
                           ? "border-gray-200"
                           : "border-gray-900"
@@ -191,12 +196,13 @@ const DashComments = () => {
                           : "border-gray-900"
                       }`}
                     >
-                      <button
-                        className="text-red-600 hover:underline"
-                        onClick={() => handleOpenDeleteModal(comment._id)}
-                      >
-                        Delete
-                      </button>
+                      <div className="flex justify-center items-center">
+                        <MdDelete
+                          className="text-red-600 hover:underline cursor-pointer"
+                          onClick={() => handleOpenDeleteModal(comment._id)}
+                          size={20}
+                        />
+                      </div>
                     </td>
                   </tr>
                 ))}
