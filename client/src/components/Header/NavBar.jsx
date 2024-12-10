@@ -7,10 +7,10 @@ import { toggleTheme } from "../../redux/theme/themeSlice";
 import { signout } from "../../redux/user/userSlice";
 import Logo1 from "../../assets/Logo/Logo1.png";
 import Logo2 from "../../assets/Logo/Logo2.png";
-import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { LiaSignOutAltSolid } from "react-icons/lia";
 import ColorMode from "../Reusables/buttons/ColorMode";
 import ColorModeAlt from "../Reusables/buttons/ColorModeAlt";
+import { useNavigates } from "../Context/NavContext";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+  const { activeLink } = useNavigates();
 
   const [searchTerm, setSearchTerm] = useState("");
   // const path = useLocation().pathname;
@@ -131,15 +132,26 @@ const NavBar = () => {
             }`}
           >
             <li>
-              <Link to="/">Home</Link>
+              <Link
+                to="/"
+                className={`${activeLink === "home" ? "underline" : ""}`}
+              >
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/about" className="hover:text-blue-600">
+              <Link
+                to="/about"
+                className={`${activeLink === "about" ? "underline" : ""}`}
+              >
                 About
               </Link>
             </li>
             <li>
-              <Link to="/projects" className="hover:text-blue-600">
+              <Link
+                to="/projects"
+                className={`${activeLink === "projects" ? "underline" : ""}`}
+              >
                 Projects
               </Link>
             </li>

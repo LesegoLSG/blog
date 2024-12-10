@@ -15,30 +15,35 @@ import PostDisplay from "./pages/PostDisplay";
 import ScrollToTop from "./components/Reusables/Scroller/ScrollToTop";
 import SearchPost from "./pages/SearchPost";
 import TopScrollerButton from "./components/Reusables/Scroller/TopScrollerButton";
+import { NavigationProvider } from "./components/Context/NavContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <TopScrollerButton />
+      <NavigationProvider>
+        <ScrollToTop />
+        <TopScrollerButton />
 
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<PageNotFound />} />
-        <Route path="/search" element={<SearchPost />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-        <Route element={<AdminPrivateRoute />}>
-          <Route path="/create-post" element={<CreatePost />} />
-          <Route path="/update-post/:postId" element={<UpdatePost />} />
-        </Route>
-        <Route path="/post/:postSlug" element={<PostDisplay />} />
-      </Routes>
+        <NavBar />
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/projects" element={<PageNotFound />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/sign-in" element={<SignIn />} />
+
+          <Route path="/search" element={<SearchPost />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route element={<AdminPrivateRoute />}>
+            <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/update-post/:postId" element={<UpdatePost />} />
+          </Route>
+          <Route path="/post/:postSlug" element={<PostDisplay />} />
+        </Routes>
+      </NavigationProvider>
       <Footer />
     </BrowserRouter>
   );
