@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import PostCard from "../components/Cards/PostCard";
 import NoData from "../components/Reusables/displays/NoData";
 import { useSelector } from "react-redux";
+import CallToAction from "../components/CallToAction/CallToAction";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -42,11 +43,11 @@ const Home = () => {
             Stay Informed, Stay Inspired
           </span>
           <h1 className="text-4xl font-extrabold max-w-3xl text-center">
-            Empowering Developers With Cutting-Edge Insights
+            Empowering You With Cutting-Edge Tech Insights
           </h1>
           <p className="font-semibold text-center">
-            Sharing the latest in programming trends, full-stack development
-            insights, and tech innovation
+            Join me as I navigate the tech world, sharing updates on industry
+            breakthroughs and my own adventures in the field.
           </p>
 
           <div className="w-full min-h-96  border border-accent p-1 rounded-lg">
@@ -95,6 +96,10 @@ const Home = () => {
                 <NoData message="Our system is currently under maintainance, please try again later." />
               </div>
             )}
+          </div>
+          {/* Call to Action */}
+          <div className="w-full my-2">
+            <CallToAction />
           </div>
         </div>
       </div>
