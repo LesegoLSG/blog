@@ -102,6 +102,7 @@ const DashPosts = () => {
           : "bg-neutral-900 text-white"
       }`}
     >
+      <h1 className="h1 p-4">Dashboard</h1>
       <div className="p-4 max-w-full  overflow-x-auto">
         {currentUser.isAdmin && userPosts.length > 0 ? (
           <>

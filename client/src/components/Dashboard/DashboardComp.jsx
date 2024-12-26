@@ -90,6 +90,7 @@ const DashboardComp = () => {
           : "bg-neutral-900 text-white"
       }`}
     >
+      <h1 className="h1 my-2">Dashboard</h1>
       {/* Dashboards cards */}
       <StatsDash
         totalUsers={totalUsers}

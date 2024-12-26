@@ -147,7 +147,7 @@ const DashProfile = () => {
 
   return (
     <section
-      className={`w-full min-h-[110vh] p-4 ${
+      className={`w-full h-auto md:min-h-[110vh] p-4 ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"

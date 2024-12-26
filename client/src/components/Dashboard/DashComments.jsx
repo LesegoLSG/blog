@@ -107,6 +107,7 @@ const DashComments = () => {
           : "bg-neutral-900 text-white"
       }`}
     >
+      <h1 className="h1 p-4">Comments</h1>
       <div className="p-4 max-w-full  overflow-x-auto">
         {currentUser.isAdmin && comments && comments.length > 0 ? (
           <>

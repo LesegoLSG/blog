@@ -239,7 +239,7 @@ const NavBar = () => {
               <li>
                 <Link
                   to="/"
-                  className="hover:text-blue-600"
+                  className={`${activeLink === "home" ? "underline" : ""}`}
                   onClick={toggleMenu}
                 >
                   Home
@@ -248,7 +248,7 @@ const NavBar = () => {
               <li>
                 <Link
                   to="/about"
-                  className="hover:text-blue-600"
+                  className={`${activeLink === "about" ? "underline" : ""}`}
                   onClick={toggleMenu}
                 >
                   About
@@ -257,7 +257,7 @@ const NavBar = () => {
               <li>
                 <Link
                   to="/projects"
-                  className="hover:text-blue-600"
+                  className={`${activeLink === "projects" ? "underline" : ""}`}
                   onClick={toggleMenu}
                 >
                   Projects

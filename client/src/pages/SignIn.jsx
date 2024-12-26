@@ -130,7 +130,7 @@ const SignIn = () => {
 
             {/* O Auth button */}
 
-            <p className="">
+            <p className="mb-6">
               Don't have an account yet?
               <span className="font-semibold cursor-pointer">
                 {" "}

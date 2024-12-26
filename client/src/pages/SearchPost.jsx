@@ -140,7 +140,7 @@ const SearchPost = () => {
 
       {/* Main Content */}
       <main
-        className={`w-full md:w-4/5 p-4 ${
+        className={`w-full md:w-4/5 p-4 mb-2 ${
           theme === "light"
             ? "bg-white text-gray-800"
             : "bg-neutral-800 text-white"
