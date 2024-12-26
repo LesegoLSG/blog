@@ -5,6 +5,7 @@ import Comment from "../components/Comments/Comment";
 import PostCard from "../components/Cards/PostCard";
 import ShareButton from "../components/Reusables/buttons/ShareButton";
 import { useSelector } from "react-redux";
+import CallToAction from "../components/CallToAction/CallToAction";
 
 const PostDisplay = () => {
   const { postSlug } = useParams();
@@ -132,6 +133,10 @@ const PostDisplay = () => {
             recentPosts.map((recentPost) => (
               <PostCard key={recentPost._id} post={recentPost} />
             ))}
+        </div>
+        {/* Call To Action */}
+        <div className="w-full my-4">
+          <CallToAction />
         </div>
       </div>
 
