@@ -1,7 +1,8 @@
 import React from "react";
-import { FaLightbulb, FaUsers, FaCode, FaRocket } from "react-icons/fa"; // Icons for sections
-import BannerImage from "../assets/HomePageImage/BannerImage.jpg"; // Placeholder image
-import DarkBannerImage from "../assets/HomePageImage/DarkBannerImage.png"; // Placeholder image
+import { FaLightbulb, FaUsers, FaCode, FaRocket } from "react-icons/fa";
+import BannerImage from "../assets/HomePageImage/BannerImage.jpg";
+import DarkBannerImage from "../assets/HomePageImage/DarkBannerImage.png";
+import Team from "../assets/AboutImages/Team.jpg";
 import { useSelector } from "react-redux";
 
 const AboutUs = () => {
@@ -34,10 +35,6 @@ const AboutUs = () => {
               bridge between the latest trends in programming and the growing
               community of developers.
             </p>
-            <div className="flex justify-center gap-x-6">
-              <button className="button-alt">Join Our Community</button>
-              <button className="button">Learn More</button>
-            </div>
           </div>
         </div>
 
@@ -53,18 +50,18 @@ const AboutUs = () => {
             </p>
             <div className="flex items-center gap-8">
               <div className="flex items-center">
-                <FaUsers className="text-4xl text-blue-600 mr-3" />
+                <FaUsers className="text-4xl text-secondary mr-3" />
                 <p className="text-xl font-semibold">Community Driven</p>
               </div>
               <div className="flex items-center">
-                <FaCode className="text-4xl text-blue-600 mr-3" />
+                <FaCode className="text-4xl text-secondary mr-3" />
                 <p className="text-xl font-semibold">Tech Experts</p>
               </div>
             </div>
           </div>
           <div className="flex-1 border border-accent p-1 rounded-lg">
             <img
-              src={BannerImage}
+              src={Team}
               alt="Tech Team"
               className="w-full h-full object-cover rounded-lg shadow-md"
             />
@@ -140,13 +137,6 @@ const AboutUs = () => {
               </button>
             </div>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="text-center py-12">
-          <p className="text-sm text-gray-500">
-            © 2024 Your Blog Name - All rights reserved.
-          </p>
         </div>
       </div>
     </section>
