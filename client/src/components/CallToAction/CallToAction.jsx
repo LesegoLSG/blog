@@ -4,7 +4,7 @@ import ProfileImageLarge from "../../assets/ProfileImageLarge.png";
 const CallToAction = () => {
   // Navigate to portfolio
   const handleNavigation = () => {
-    window.location.href = "https://mhlongolesego.netlify.app";
+    window.open("https://mhlongolesego.netlify.app", "_blank");
   };
 
   return (
