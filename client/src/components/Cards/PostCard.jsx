@@ -41,9 +41,7 @@ const PostCard = ({ post }) => {
 
         {/* Title */}
         <div className="py-0.5">
-          <h2 className="text-[0.95rem] line-clamp-3">
-            {post.title} Lesego Mhlongo i want to seesas scdsfsd cdssd sadasd sd
-          </h2>
+          <h2 className="text-[0.95rem] line-clamp-3">{post.title}</h2>
         </div>
 
         {/* Buttons */}
