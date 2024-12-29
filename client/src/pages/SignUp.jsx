@@ -12,6 +12,9 @@ import Lesego from "../assets/Lesego.jpg";
 import LoadingSpinner from "../components/Reusables/LoadingSpinner/LoadingSpinner";
 import OAuthBtn from "../components/Reusables/buttons/OAuthBtn";
 import { useSelector } from "react-redux";
+import Logo1 from "../assets/Logo/Logo1.png";
+import RegisterImage from "../assets/Logo/RegisterImage.png";
+import LoginImage from "../assets/Logo/LoginImage.png";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -72,21 +75,20 @@ const SignUp = () => {
 
   return (
     <section
-      className={`w-full min-h-screen flex justify-center items-center ${
+      className={`w-full min-h-screen flex  ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"
       }`}
     >
       {/* left div */}
-      <div className="w-full md:w-1/2 h-full flex justify-center items-center p-6 md:p-32">
-        <div className="w-full h-full flex flex-col">
-          <h1 className="text-primary font-semibold text-3xl">
-            Suite<span className="text-accent-hover">Spot</span>
-          </h1>
-          <div className="mt-12">
-            <h1 className=" text-3xl">Sign up</h1>
-            <h3 className=" text-xl">You are more than welcomed</h3>
+      <div className="w-full h-auto  p-6 md:px-32">
+        <div className="w-full h-auto flex flex-col">
+          <div className="mt-12 space-y-2">
+            <h1 className=" text-3xl font-semibold">Sign up</h1>
+            <h3 className=" text-base">
+              Create an account to enjoy exclusive benefits and stay connected!
+            </h3>
           </div>
           <form className="flex flex-col gap-y-6 mt-6" onSubmit={handleSignUp}>
             {/* First and last name inputs*/}
@@ -176,6 +178,9 @@ const SignUp = () => {
               <hr className="flex-grow border-gray-400" />
             </div>
 
+            <OAuthBtn setOAuthError={setOAuthError} />
+            {oAuthError && <p className="text-red-600">{oAuthError}</p>}
+
             <p className=" mb-4">
               Already have an account?
               <span className="font-semibold cursor-pointer underline">
@@ -184,19 +189,11 @@ const SignUp = () => {
               </span>{" "}
             </p>
           </form>
-          <OAuthBtn setOAuthError={setOAuthError} />
-          {oAuthError && <p className="text-red-600">{oAuthError}</p>}
         </div>
       </div>
       {/* right div */}
-      <div className="hidden md:block w-1/2 h-full relative">
-        <div className="absolute inset-0 flex flex-col justify-center items-center">
-          <h1 className="text-white text-3xl">Warm stay</h1>
-          <h3 className="text-white text-xl">
-            Enjoy the stay inour luxury hotel
-          </h3>
-        </div>
-        <img src={Lesego} className="w-full h-full object-cover" />
+      <div className="hidden md:block w-full h-auto ">
+        <img src={RegisterImage} className="w-full h-full object-fit" />
       </div>
       {isLoading && <LoadingSpinner />}
     </section>

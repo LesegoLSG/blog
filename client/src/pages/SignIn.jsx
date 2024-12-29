@@ -16,6 +16,7 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import OAuthBtn from "../components/Reusables/buttons/OAuthBtn";
+import LoginImage from "../assets/Logo/LoginImage.png";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -64,30 +65,23 @@ const SignIn = () => {
 
   return (
     <section
-      className={`w-full min-h-screen flex justify-center items-center  ${
+      className={`w-full h-auto flex  ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"
       }`}
     >
       {/* Left div */}
-      <div className="hidden md:block w-1/2 h-full relative">
-        <div className="absolute inset-0 flex flex-col justify-center items-center">
-          <h1 className=" text-3xl">Warm stay</h1>
-          <h3 className=" text-xl">Enjoy the stay inour luxury hotel</h3>
-        </div>
-        <img src={Lesego} className="w-full h-full object-cover" />
+      <div className="hidden md:block w-1/2 h-auto ">
+        <img src={LoginImage} className="w-full object-cover" />
       </div>
       {/* right div */}
-      <div className="w-full md:w-1/2 h-full flex justify-center items-center p-6 md:p-32">
-        <div className="w-full h-full flex flex-col">
-          <h1 className="text-primary font-semibold text-3xl">
-            Suite<span className="text-accent-hover">Spot</span>
-          </h1>
-          <div className="mt-12">
-            <h1 className=" text-3xl">Login</h1>
-            <h3 className=" text-xl">
-              Welcome Back! Please enter your details
+      <div className="w-full md:w-1/2 h-auto p-6 md:p-32">
+        <div className="w-full h-auto flex flex-col">
+          <div className="mt-12 space-y-2">
+            <h1 className=" text-3xl font-semibold">Login</h1>
+            <h3 className=" text-base">
+              Welcome back! We're thrilled to have you here.
             </h3>
           </div>
           <form className="flex flex-col gap-y-4 mt-6" onSubmit={handleSignIn}>
@@ -129,16 +123,15 @@ const SignIn = () => {
             </div>
 
             {/* O Auth button */}
-
+            <OAuthBtn />
             <p className="mb-6">
               Don't have an account yet?
-              <span className="font-semibold cursor-pointer">
+              <span className="font-semibold cursor-pointer underline">
                 {" "}
                 <Link to="/sign-up">Sign up for free</Link>
               </span>{" "}
             </p>
           </form>
-          <OAuthBtn />
         </div>
       </div>
       {loading && <LoadingSpinner />}
