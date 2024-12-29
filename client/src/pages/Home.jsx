@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import BannerImage from "../assets/HomePageImage/BannerImage.jpg";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import PostCard from "../components/Cards/PostCard";
 import NoData from "../components/Reusables/displays/NoData";
 import { useSelector } from "react-redux";
 import CallToAction from "../components/CallToAction/CallToAction";
+import {
+  leftToRightVariant,
+  rightToLeftVariant,
+} from "../components/Reusables/Motion/MotionText";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -31,7 +36,7 @@ const Home = () => {
 
   return (
     <section
-      className={`w-full  min-h-screen  ${
+      className={`w-full  min-h-screen px-2 md:px-0 pb-4 ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"
@@ -39,16 +44,34 @@ const Home = () => {
     >
       <div className="container mx-auto max-w-7xl ">
         <div className="w-full flex flex-col justify-center items-center gap-y-16 min-h-60  pt-4">
-          <span className="text-sm font-semibold">
+          <motion.span
+            className="text-sm font-semibold"
+            variants={leftToRightVariant}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
             Stay Informed, Stay Inspired
-          </span>
-          <h1 className="text-4xl font-extrabold max-w-3xl text-center">
+          </motion.span>
+          <motion.h1
+            className="text-4xl font-extrabold max-w-3xl text-center"
+            variants={rightToLeftVariant}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
             Empowering You With Cutting-Edge Tech Insights
-          </h1>
-          <p className="font-semibold text-center">
+          </motion.h1>
+          <motion.p
+            className="font-semibold text-center"
+            variants={leftToRightVariant}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
             Join me as I navigate the tech world, sharing updates on industry
             breakthroughs and my own adventures in the field.
-          </p>
+          </motion.p>
 
           <div className="w-full min-h-96  border border-accent p-1 rounded-lg">
             <div
