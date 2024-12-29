@@ -13,7 +13,7 @@ const ColorMode = ({ toggleTheme }) => {
           onClick={() => dispatch(toggleTheme())}
         >
           <MdDarkMode className="cursor-pointer text-black" size={20} />
-          <span className="text-sm">Dark Mode</span>
+          <span className="text-sm font-semibold">Dark Mode</span>
         </div>
       ) : (
         <div

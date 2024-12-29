@@ -12,7 +12,7 @@ export const NavigationProvider = ({ children }) => {
     const pathToActiveLink = {
       "/": "home",
       "/about": "about",
-      "/projects": "projects",
+      "/search": "search",
     };
 
     // Set activeLink based on the current pathname

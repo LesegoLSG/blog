@@ -149,10 +149,10 @@ const NavBar = () => {
             </li>
             <li>
               <Link
-                to="/projects"
-                className={`${activeLink === "projects" ? "underline" : ""}`}
+                to="/search"
+                className={`${activeLink === "search" ? "underline" : ""}`}
               >
-                Projects
+                Blogs
               </Link>
             </li>
           </ul>
@@ -256,11 +256,11 @@ const NavBar = () => {
               </li>
               <li>
                 <Link
-                  to="/projects"
-                  className={`${activeLink === "projects" ? "underline" : ""}`}
+                  to="/search"
+                  className={`${activeLink === "search" ? "underline" : ""}`}
                   onClick={toggleMenu}
                 >
-                  Projects
+                  Blogs
                 </Link>
               </li>
             </ul>
@@ -269,11 +269,14 @@ const NavBar = () => {
                 <ColorMode toggleTheme={toggleTheme} />
                 <button
                   onClick={() => navigate("/sign-up")}
-                  className="button-alt"
+                  className="w-full button-alt"
                 >
                   Sign up for free
                 </button>
-                <button onClick={() => navigate("/sign-in")} className="button">
+                <button
+                  onClick={() => navigate("/sign-in")}
+                  className="w-full button"
+                >
                   Sign In
                 </button>
               </div>
