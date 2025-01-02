@@ -10,23 +10,18 @@ const Footer = () => {
             <h4 className="text-lg font-bold mb-4">Navigation</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#home" className="hover:underline">
+                <a href="/" className="hover:underline">
                   Home
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:underline">
+                <a href="/about" className="hover:underline">
                   About
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:underline">
-                  Get in Touch
-                </a>
-              </li>
-              <li>
-                <a href="#product" className="hover:underline">
-                  Product
+                <a href="/search" className="hover:underline">
+                  Blog
                 </a>
               </li>
             </ul>
@@ -36,7 +31,7 @@ const Footer = () => {
             <h4 className="text-lg font-bold mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#terms" className="hover:underline">
+                <a href="terms-conditions" className="hover:underline">
                   Terms and Conditions
                 </a>
               </li>
@@ -46,7 +41,7 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#privacy" className="hover:underline">
+                <a href="/privacy-policy" className="hover:underline">
                   Privacy Policy
                 </a>
               </li>
