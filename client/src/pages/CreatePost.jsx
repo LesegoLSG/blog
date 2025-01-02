@@ -172,7 +172,7 @@ const CreatePost = () => {
             <option value="virtual-reality">Virtual Reality</option>
             <option value="quantum-computing">Quantum Computing</option>
             <option value="personal-development">Personal Development</option>
-
+            <option value="springboot">Springboot</option>
             <option value="Artificial Intelligence">
               Artificial Intelligence
             </option>
