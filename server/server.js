@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.route.js';
 import postRoutes from './routes/post.route.js';
 import commentRoutes from './routes/comment.route.js';
 import cookieParser from 'cookie-parser';
+import path from "path"
 
 dotenv.config();
 
@@ -17,6 +18,8 @@ mongoose.connect(
     console.log("Bad credentials", err);
 })
 
+const __dirname = path.resolve();
+
 const app = express();
 
 app.use(express.json());
@@ -26,11 +29,18 @@ app.listen(8000, () =>{
     console.log('server is running on port 8000 happy');
 });
 
-//Test
+//api's
 app.use('/api/user', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
+
+//find a dist and run index.html 
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req,res) => {
+    res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 app.use((err, req, res, next) =>{
     const statusCode = err.statusCode || 500;
