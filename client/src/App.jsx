@@ -7,6 +7,7 @@ import About from "./pages/About";
 import PageNotFound from "./pages/PageNotFound";
 import Footer from "./components/Footer/Footer";
 import Dashboard from "./pages/Dashboard";
+import TermsAndConditions from "./pages/TermsAndConditions";
 import PrivateRoute from "./components/PrivateRoute.jsx/PrivateRoute";
 import AdminPrivateRoute from "./components/PrivateRoute.jsx/AdminPrivateRoute";
 import CreatePost from "./pages/CreatePost";
@@ -16,6 +17,7 @@ import ScrollToTop from "./components/Reusables/Scroller/ScrollToTop";
 import SearchPost from "./pages/SearchPost";
 import TopScrollerButton from "./components/Reusables/Scroller/TopScrollerButton";
 import { NavigationProvider } from "./components/Context/NavContext";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
           <Route path="/projects" element={<PageNotFound />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/sign-in" element={<SignIn />} />
+          <Route path="/terms-conditions" element={<TermsAndConditions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
           <Route path="/search" element={<SearchPost />} />
           <Route element={<PrivateRoute />}>
