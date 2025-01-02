@@ -81,11 +81,11 @@ const DashSideBar = () => {
         </button>
         <div className="flex gap-x-4 items-center">
           <h1
-            className={`text-white origin-left font-medium text-xl duration-300 ${
+            className={` origin-left font-medium text-xl duration-300 ${
               !open && "scale-0"
             }`}
           >
-            Designer
+            Mhlongo Lesego
           </h1>
         </div>
         <ul className=" pt-6 text-left">
