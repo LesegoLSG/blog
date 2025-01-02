@@ -1,6 +1,5 @@
 import React from "react";
 import { FaLightbulb, FaUsers, FaCode, FaRocket } from "react-icons/fa";
-import BannerImage from "../assets/HomePageImage/BannerImage.jpg";
 import DarkBannerImage from "../assets/HomePageImage/DarkBannerImage.png";
 import Team from "../assets/AboutImages/Team.jpg";
 import { useSelector } from "react-redux";

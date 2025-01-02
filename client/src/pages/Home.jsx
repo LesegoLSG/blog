@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import BannerImage from "../assets/HomePageImage/BannerImage.jpg";
+import BannerImage from "../assets/HomePageImage/BannerImage.png";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import PostCard from "../components/Cards/PostCard";
