@@ -8,13 +8,10 @@ import {
   validatePhoneNumber,
   validatePassword,
 } from "../components/Reusables/Validations/InputValidation";
-import Lesego from "../assets/Lesego.jpg";
 import LoadingSpinner from "../components/Reusables/LoadingSpinner/LoadingSpinner";
 import OAuthBtn from "../components/Reusables/buttons/OAuthBtn";
 import { useSelector } from "react-redux";
-import Logo1 from "../assets/Logo/Logo1.png";
 import RegisterImage from "../assets/Logo/RegisterImage.png";
-import LoginImage from "../assets/Logo/LoginImage.png";
 
 const SignUp = () => {
   const navigate = useNavigate();
