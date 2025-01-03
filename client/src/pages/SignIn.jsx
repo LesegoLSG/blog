@@ -16,7 +16,7 @@ import {
   signInFailure,
 } from "../redux/user/userSlice";
 import OAuthBtn from "../components/Reusables/buttons/OAuthBtn";
-import LoginImage from "../assets/Logo/LoginImage.png";
+import loginImage from "../assets/Logo/loginImage.png";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ const SignIn = () => {
     >
       {/* Left div */}
       <div className="hidden md:block w-1/2 h-auto ">
-        <img src={LoginImage} className="w-full object-cover" />
+        <img src={loginImage} className="w-full object-cover" />
       </div>
       {/* right div */}
       <div className="w-full md:w-1/2 h-auto p-6 md:p-32">
