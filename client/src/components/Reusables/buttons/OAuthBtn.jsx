@@ -10,7 +10,7 @@ import {
 } from "../../../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
-const OAuthBtn = ({ setOAuthError }) => {
+const OAuthBtn = ({ setOAuthError, mode }) => {
   const auth = getAuth(app);
 
   const dispatch = useDispatch();
@@ -53,7 +53,9 @@ const OAuthBtn = ({ setOAuthError }) => {
       onClick={handleGoogleClick}
     >
       <FcGoogle />
-      <p className="font-semibold">Sign in With Google</p>
+      <p className="font-semibold">
+        {mode === "signup" ? "Sign Up" : "Sign In"} With Google
+      </p>
     </button>
   );
 };

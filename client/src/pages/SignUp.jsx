@@ -175,7 +175,7 @@ const SignUp = () => {
               <hr className="flex-grow border-gray-400" />
             </div>
 
-            <OAuthBtn setOAuthError={setOAuthError} />
+            <OAuthBtn setOAuthError={setOAuthError} mode="signup"/>
             {oAuthError && <p className="text-red-600">{oAuthError}</p>}
 
             <p className=" mb-4">

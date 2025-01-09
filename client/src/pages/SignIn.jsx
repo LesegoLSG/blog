@@ -123,7 +123,7 @@ const SignIn = () => {
             </div>
 
             {/* O Auth button */}
-            <OAuthBtn />
+            <OAuthBtn mode="signin" />
             <p className="mb-6">
               Don't have an account yet?
               <span className="font-semibold cursor-pointer underline">
