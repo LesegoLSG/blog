@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InputField from "../components/Reusables/InputFields/InputField";
+import InputFieldEyeToggle from "../components/Reusables/InputFields/inputFieldEyeToggle";
 import { FcGoogle } from "react-icons/fc";
 import {
   validateEmail,
@@ -72,7 +73,7 @@ const SignUp = () => {
 
   return (
     <section
-      className={`w-full min-h-screen flex  ${
+      className={`w-full min-h-screen flex pt-20 ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"
@@ -132,7 +133,7 @@ const SignUp = () => {
               />
             </div>
             {/* Password input */}
-            <InputField
+            <InputFieldEyeToggle
               name="password"
               type="password"
               placeholder="Password"
@@ -143,10 +144,10 @@ const SignUp = () => {
             />
 
             {/*Confirm Password input */}
-            <InputField
+            <InputFieldEyeToggle
               name="confirmPassword"
               type="password"
-              placeholder="confirmPassword"
+              placeholder="Confirm Password"
               value={signUp.confirmPassword}
               onChange={handleInputChange}
               validate={validatePassword}
@@ -175,7 +176,7 @@ const SignUp = () => {
               <hr className="flex-grow border-gray-400" />
             </div>
 
-            <OAuthBtn setOAuthError={setOAuthError} mode="signup"/>
+            <OAuthBtn setOAuthError={setOAuthError} mode="signup" />
             {oAuthError && <p className="text-red-600">{oAuthError}</p>}
 
             <p className=" mb-4">

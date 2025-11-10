@@ -5,7 +5,7 @@ const TermsAndConditions = () => {
   const { theme } = useSelector((state) => state.theme);
   return (
     <div
-      className={`min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8 ${
+      className={`min-h-screen bg-gray-50 py-10 px-4 sm:px-6 lg:px-8 pt-20 ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"

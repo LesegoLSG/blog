@@ -24,7 +24,7 @@ const AboutUs = () => {
 
   return (
     <section
-      className={`w-full py-16 ${
+      className={`w-full py-16 pt-[8rem] ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"

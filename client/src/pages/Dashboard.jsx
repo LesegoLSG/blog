@@ -22,14 +22,14 @@ const Dashboard = () => {
   }, [location.search]);
 
   return (
-    <section className=" flex w-full">
+    <section className=" flex w-full pt-[8rem] md:pt-[4rem]">
       {/* SideBar */}
       <div className="flex">
         <DashSideBar />
       </div>
       {/* Profile */}
       <div
-        className={`flex-1  ${
+        className={`flex-1 ${
           theme === "light" ? "bg-white" : "bg-neutral-800"
         } `}
       >

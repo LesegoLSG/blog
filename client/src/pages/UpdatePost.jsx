@@ -136,7 +136,7 @@ const UpdatePost = () => {
     }
   };
   return (
-    <section className="max-w-4xl mx-auto p-4 min-h-screen">
+    <section className="max-w-4xl mx-auto p-4 min-h-screen pt-20">
       <h1 className="text-lg font-bold text-center my-6">Update post</h1>
       <form className="flex flex-col gap-4" onSubmit={handleUpdatePost}>
         <div className="flex flex-col md:flex-row justify-center items-center gap-4">

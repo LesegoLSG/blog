@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import InputField from "../components/Reusables/InputFields/InputField";
+import InputFieldEyeToggle from "../components/Reusables/InputFields/inputFieldEyeToggle";
 import {
   validateEmail,
   validatePassword,
@@ -65,14 +66,14 @@ const SignIn = () => {
 
   return (
     <section
-      className={`w-full h-auto flex  ${
+      className={`w-full h-auto flex pt-20 ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"
       }`}
     >
       {/* Left div */}
-      <div className="hidden md:block w-1/2 h-auto ">
+      <div className="hidden md:block w-1/2 h-auto">
         <img src={loginImage} className="w-full object-cover" />
       </div>
       {/* right div */}
@@ -94,7 +95,7 @@ const SignIn = () => {
               validate={validateEmail}
               errorMessage="Invalid email address"
             />
-            <InputField
+            <InputFieldEyeToggle
               name="password"
               type="password"
               placeholder="Password"

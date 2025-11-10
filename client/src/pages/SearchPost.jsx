@@ -124,7 +124,7 @@ const SearchPost = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row">
+    <div className="min-h-screen flex flex-col md:flex-row pt-[7rem] md:pt-16">
       {/* Sidebar */}
       <aside
         className={`w-full md:w-1/5 p-4 ${

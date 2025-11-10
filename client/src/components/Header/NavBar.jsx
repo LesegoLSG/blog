@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaSearch, FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
+import {
+  FaSearch,
+  FaBars,
+  FaTimes,
+  FaUserCircle,
+  FaUserPlus,
+  FaSignInAlt,
+} from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../../redux/theme/themeSlice";
@@ -21,11 +28,41 @@ const NavBar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
   const { activeLink } = useNavigates();
+  //slide out when scrolling down and slide back  when scrolling up consts
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const [searchTerm, setSearchTerm] = useState("");
   // const path = useLocation().pathname;
   const location = useLocation();
 
+  //Show and hide searchbar
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
+
+  //Navbar visibility on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY <= 0) {
+        setIsVisible(true); // always show at top
+      } else if (currentScrollY > lastScrollY) {
+        setIsVisible(false); // hide when scrolling down
+      } else {
+        setIsVisible(true); // show when scrolling up
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+
+  //for searchbar
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("searchTerm");
@@ -83,7 +120,9 @@ const NavBar = () => {
 
   return (
     <header
-      className={`w-full px-4 py-2 md:px-16 border-b-2  ${
+      className={`fixed top-0 left-0 w-full z-50 px-4 py-2 md:px-16 border-b-2 transition-transform duration-300 ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      } ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-gray-900 text-gray-600"
@@ -204,13 +243,17 @@ const NavBar = () => {
               )}
             </div>
           ) : (
-            <div className="flex items-center gap-x-2">
-              <button className="button-alt hidden md:block ">
-                <Link to="/sign-up">Sign Up for free</Link>
-              </button>
-              <button className="button hidden md:block ">
+            <div className="hidden md:flex items-center gap-x-4">
+              <div className="text-sm underline flex justify-center items-center gap-x-1">
+                <FaUserPlus />
+                <Link to="/sign-up">Sign Up</Link>
+              </div>
+
+              <div className="text-sm underline flex justify-center items-center gap-x-1">
+                <FaSignInAlt />
                 <Link to="/sign-in">Sign In</Link>
-              </button>
+              </div>
+
               <ColorModeAlt toggleTheme={toggleTheme} />
             </div>
           )}
@@ -265,46 +308,67 @@ const NavBar = () => {
               </li>
             </ul>
             {!currentUser && (
-              <div className="flex flex-col items-center gap-y-4">
-                <ColorMode toggleTheme={toggleTheme} />
-                <button
-                  onClick={() => navigate("/sign-up")}
-                  className="w-full button-alt"
-                >
-                  Sign up for free
-                </button>
-                <button
-                  onClick={() => navigate("/sign-in")}
-                  className="w-full button"
-                >
-                  Sign In
-                </button>
+              <div className="flex flex-col items-center gap-y-4 pb-10">
+                <div className="text-sm underline flex justify-center items-center gap-x-1">
+                  <FaUserPlus />
+                  <Link to="/sign-up">Sign Up</Link>
+                </div>
+
+                <div className="text-sm underline flex justify-center items-center gap-x-1">
+                  <FaSignInAlt />
+                  <Link to="/sign-in">Sign In</Link>
+                </div>
+
+                <ColorMode toggleTheme={toggleTheme} className="bg-green-600" />
               </div>
             )}
           </div>
         )}
       </div>
 
-      <form
-        className={`flex  md:hidden justify-between items-center p-1 my-2 bg-gray-100 shadow-sm rounded-md ${
-          location.pathname === "/search" ? "hidden" : "block"
-        }`}
-        onSubmit={handleSubmitSearch}
-      >
-        <input
-          type="text"
-          placeholder="Search"
-          className="outline-none bg-transparent px-2 py-1 w-3/4 text-black rounded-l-md "
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700 flex items-center justify-center cursor-pointer"
-        >
-          Search
-        </button>
-      </form>
+      {/* Mobile Search Section */}
+      <div className="md:hidden my-2 flex items-center justify-start">
+        {/* Show Search Icon if bar is hidden */}
+        {!showMobileSearch && (
+          <button
+            onClick={() => setShowMobileSearch(true)}
+            className={`pt-1 rounded-md bg-blue-600 ${
+              theme === "light"
+                ? "bg-white text-gray-800"
+                : "bg-gray-900 text-gray-600"
+            }`}
+          >
+            <FaSearch size={18} />
+          </button>
+        )}
+
+        {/* Show Search Bar when active */}
+        {showMobileSearch && (
+          <form
+            className="flex items-center w-full bg-gray-100 shadow-sm rounded-md transition-all duration-300"
+            onSubmit={handleSubmitSearch}
+          >
+            <input
+              type="text"
+              placeholder="Search"
+              className="outline-none bg-transparent px-3 py-2 w-full text-black rounded-l-md"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700"
+            >
+              Search
+            </button>
+            {/* Optional close icon */}
+            {/* <FaTimes
+              className="ml-2 text-gray-600 cursor-pointer"
+              onClick={() => setShowMobileSearch(false)}
+            /> */}
+          </form>
+        )}
+      </div>
     </header>
   );
 };

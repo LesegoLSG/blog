@@ -36,7 +36,7 @@ const Home = () => {
 
   return (
     <section
-      className={`w-full  min-h-screen px-2 md:px-0 pb-4 ${
+      className={`w-full  min-h-screen px-2 md:px-0 pb-4 pt-[8rem] ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"

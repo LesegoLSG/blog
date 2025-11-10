@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import InputField from "../Reusables/InputFields/InputField";
+import InputFieldEyeToggle from "../Reusables/InputFields/InputFieldEyeToggle";
 import {
   validateEmail,
   validateLettersOnly,
   validatePhoneNumber,
+  validatePassword,
 } from "../Reusables/Validations/InputValidation";
 import { useNavigate } from "react-router-dom";
 import { signout } from "../../redux/user/userSlice";
@@ -44,7 +46,7 @@ const DashProfile = () => {
     lastName: currentUser.lastName,
     contact: currentUser.contact,
     email: currentUser.email,
-    password: "",
+    password: currentUser.password,
   });
 
   useEffect(() => {
@@ -93,7 +95,7 @@ const DashProfile = () => {
     }
   };
 
-  console.log(imageFileUrl);
+  // console.log(imageFileUrl);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
@@ -114,7 +116,7 @@ const DashProfile = () => {
       console.log(error.message);
     }
   };
-
+  console.log("formData:", formData);
   const submitUpdatedData = async (e) => {
     e.preventDefault();
     console.log("formData:", formData);
@@ -243,24 +245,32 @@ const DashProfile = () => {
               validate={validateEmail}
               errorMessage="Invalid email eg john@gmail.com"
             />
+            <InputFieldEyeToggle
+              name="password"
+              type="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleInputChange}
+              validate={validatePassword}
+              errorMessage="Minimum 6 characters with at least one letter, one digit, and one special character"
+            />
+            {currentUser.isAdmin && (
+              <button
+                className="w-full button"
+                onClick={() => navigate("/create-post")}
+              >
+                Create a post
+              </button>
+            )}
+          </div>
+          <div className="flex justify-between items-center mt-4">
             <button type="submit" className="button">
               Update
             </button>
-          </div>
-        </form>
-        <div className="w-full md:w-1/2 space-y-6">
-          <div className="flex justify-between items-center mt-4">
             <span className="button-cancel">Delete account</span>
           </div>
-          {currentUser.isAdmin && (
-            <button
-              className="w-full button"
-              onClick={() => navigate("/create-post")}
-            >
-              Create a post
-            </button>
-          )}
-        </div>
+        </form>
+        <div className="w-full md:w-1/2 space-y-6"></div>
       </div>
       {loading && <LoadingSpinner />}
     </section>

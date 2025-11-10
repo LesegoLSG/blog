@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
   const { theme } = useSelector((state) => state.theme);
   return (
     <section
-      className={`w-full py-16 ${
+      className={`w-full py-16 pt-20 ${
         theme === "light"
           ? "bg-white text-gray-800"
           : "bg-neutral-900 text-white"
