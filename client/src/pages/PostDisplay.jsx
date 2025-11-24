@@ -62,7 +62,7 @@ const PostDisplay = () => {
 
   return (
     <section
-      className={`  min-h-screen p-2 md:p-6 pt-20 ${
+      className={`  min-h-screen p-2  pt-[8rem] ${
         theme === "light"
           ? "bg-gray-50 text-gray-800"
           : "bg-neutral-900 text-white"
