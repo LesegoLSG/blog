@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InputField from "../components/Reusables/InputFields/InputField";
-import InputFieldEyeToggle from "../components/Reusables/InputFields/inputFieldEyeToggle";
+import InputFieldEyeToggle from "../components/Reusables/InputFields/InputFieldEyeToggle";
 import { FcGoogle } from "react-icons/fc";
 import {
   validateEmail,
